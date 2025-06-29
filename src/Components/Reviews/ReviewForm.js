@@ -2,7 +2,7 @@ const ReviewForm = ({ onChange, onClick, value }) => {
   return (
     <div>
       <hr />
-      This is the review form child component.
+      Add a review:
       <form onSubmit={onClick}>
         <input
           text="text"

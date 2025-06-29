@@ -10,7 +10,6 @@ Parse.serverURL = Env.SERVER_URL;
 function App() {
   return (
     <div className="App">
-      <h1>Feature 4</h1>
       <Components />
     </div>
   );

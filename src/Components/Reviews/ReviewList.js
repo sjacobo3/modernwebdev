@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
+
+// need to add "getByProfessor,"
 import {
   createReview,
   getAllReviews,
-  getByProfessor,
   removeReview,
 } from "../../Services/ReviewService";
+
 import ReviewForm from "./ReviewForm";
 
 const ReviewList = () => {
@@ -60,9 +62,7 @@ const ReviewList = () => {
 
   return (
     <div>
-      <hr />
-      This is the review list parent component.
-      <h3>Reviews</h3>
+      <h1>Reviews</h1>
       <ReviewForm
         onChange={onChangeHandler}
         onClick={onClickHandler}

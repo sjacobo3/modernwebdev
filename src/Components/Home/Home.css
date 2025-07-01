@@ -1,0 +1,10 @@
+.container {
+    text-align: center;
+}
+
+.dome {
+    background-image: url("../../assets/NotreDame.jpg");
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 500px;
+}

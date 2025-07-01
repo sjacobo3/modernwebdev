@@ -2,8 +2,10 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    background-color: #8db8e2; 
     padding: 0 30px;
     height: 60px;
+    color: white
 }
 .nav-bar {
     display: flex;
@@ -11,5 +13,13 @@
 }
 .nav-item a {
     text-decoration: none;
-    color: black;
+    color: white;
+    font-weight: 500;
+    padding: 8px 12px;
+    border-radius: 5px;
+}
+
+.nav-item a:hover {
+  background-color: #193e63;
+  color: white;
 }

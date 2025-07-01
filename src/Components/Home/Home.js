@@ -1,13 +1,21 @@
 import './Home.css'
+
 function Home() {
     return (
         <div class="container">
-            <h1>Pick My Professor?</h1>
-            <p style={{ fontSize: "21px", maxWidth: "600px", margin: "auto" }}>
+            <h1 
+            style = {{
+                fontSize: "50px", 
+                fontWeight: 600, 
+                marginBottom: "20px"}}>
+                Pick My Professor?</h1>
+            <p style={{ 
+                fontSize: "25px", 
+                marginBottom: "20px" }}>
         Help fellow students choose their courses wisely!
       </p> 
       <br/>
-            <div class="dome"></div>
+            <div className="dome"></div>
         </div>
     );
 };

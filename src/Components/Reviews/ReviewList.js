@@ -20,7 +20,7 @@ const ReviewList = () => {
   }, []);
 
   return (
-    <div>
+    <div style={{marginLeft: "30px", marginBottom: "16px"}}>
       <h1>Reviews</h1>
       {loading ? (<p>Loading...</p>) : (
         <ul>

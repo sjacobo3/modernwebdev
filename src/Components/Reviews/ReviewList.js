@@ -1,31 +1,13 @@
-import React, { useEffect, useState } from "react";
-
+import React from "react";
 import ReviewItem from "./ReviewItem";
-import { getAllReviews } from "../../Services/ReviewService";
 
-const ReviewList = () => {
-  const [reviews, setReviews] = useState([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    getAllReviews() 
-    .then((results) => {
-      setReviews(results);
-      setLoading(false);
-    })
-    .catch((error) => {
-      console.error("Error fetching reviews:", error);
-      setLoading(false);
-    })
-  }, []);
-
+const ReviewList = ({reviews, loading}) => {
   return (
-    <div style={{marginLeft: "30px", marginBottom: "16px"}}>
-      <h1>Reviews</h1>
+    <div className="reviews">
       {loading ? (<p>Loading...</p>) : (
-        <ul>
+        <div className="review-list">
           {reviews.map((review) => (<ReviewItem key={review.id} review={review}/>))}
-        </ul>
+        </div>
       )}
     </div>
   );

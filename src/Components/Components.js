@@ -1,9 +1,9 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
-import ReviewList from "./Reviews/ReviewList";
 import Navigation from "./Navigation/Navigation";
 import Home from "./Home/Home";
+import ReviewMain from "./Reviews/ReviewMain";
 
 const Components = () => {
   return (
@@ -11,7 +11,7 @@ const Components = () => {
       <Navigation />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/reviews" element={<ReviewList />} />
+        <Route path="/reviews" element={<ReviewMain />} />
       </Routes>
     </Router>
   );

@@ -1,4 +1,5 @@
 import './Home.css'
+import AuthModule from "../Auth/Auth";
 
 function Home() {
     return (
@@ -16,9 +17,8 @@ function Home() {
       </p> 
       <br/>
             <div className="dome"></div>
+            <AuthModule/> {/*show login/register buttons*/}
         </div>
     );
 };
-
-
 export default Home;

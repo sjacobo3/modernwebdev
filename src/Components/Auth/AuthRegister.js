@@ -1,0 +1,71 @@
+import React, { useEffect, useState } from "react";
+import { createUser, authenticateUser } from "../../Services/AuthService";
+import AuthForm from "./AuthForm";
+import { useNavigate, Link } from "react-router-dom";
+
+const AuthRegister = () => {
+  const navigate = useNavigate();
+
+  const [newUser, setNewUser] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    password: "",
+  });
+
+  // flag is the state to watch for add/remove updates
+  const [add, setAdd] = useState(false);
+
+  // check if user is already logged logged in
+  useEffect(() => {
+    if (authenticateUser()) {
+      alert("Already logged in!");
+      navigate("/reviews");
+    }
+  }, [navigate]);
+
+  // register user, show message, and redirect to home page
+  useEffect(() => {
+    if (newUser && add) {
+      createUser(newUser).then((userCreated) => {
+        if (userCreated) {
+          alert(
+            `${userCreated.get("firstName")}, you successfully registered!`
+          );
+          navigate("/reviews");
+        }
+        setAdd(false);
+      });
+    }
+  }, [newUser, add, navigate]);
+
+  const onChangeHandler = (e) => {
+    e.preventDefault();
+    console.log(e.target);
+    const { name, value: newValue } = e.target;
+    console.log(newValue);
+    setNewUser({ ...newUser, [name]: newValue });
+  };
+
+  const onSubmitHandler = (e) => {
+    e.preventDefault();
+    console.log("submitted: ", e.target);
+    setAdd(true);
+  };
+
+  return (
+    <div>
+      <AuthForm
+        user={newUser}
+        onChange={onChangeHandler}
+        onSubmit={onSubmitHandler}
+      />
+      <p className="auth-form-text">
+        Already Registered? <Link to="/auth/login">Login Here</Link>
+      </p>
+    </div>
+  );
+};
+
+export default AuthRegister;
+

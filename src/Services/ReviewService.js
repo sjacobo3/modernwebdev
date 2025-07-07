@@ -1,5 +1,4 @@
 import Parse from "parse";
-
 // CREATE operation - new review with Name
 export const createReview = (name) => {
   console.log("Creating: ", name);
@@ -31,3 +30,4 @@ export const removeReview = (id) => {
   const query = new Parse.Query(Review);
   return query.get(id).then((review) => review.destroy());
 };
+

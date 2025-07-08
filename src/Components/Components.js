@@ -1,13 +1,14 @@
+import "../styles.css";
+
 import React from "react";
-//import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 
 import Navigation from "./Navigation/Navigation";
 import Home from "./Home/Home";
-import ReviewMain from "./Reviews/ReviewMain";
-import ProtectedRoute from "../Services/ProtectedRoute";
 import AuthRegister from "./Auth/AuthRegister";
 import AuthLogin from "./Auth/AuthLogin";
+import ReviewMain from "./Reviews/ReviewMain";
+import ProtectedRoute from "../Services/ProtectedRoute";
 
 const Components = () => {
   return (

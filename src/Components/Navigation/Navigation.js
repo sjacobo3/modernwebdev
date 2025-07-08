@@ -1,4 +1,3 @@
-import './Navigation.css'
 import { Link } from 'react-router-dom';
 
 const Navigation = () => {
@@ -10,7 +9,7 @@ const Navigation = () => {
                     <Link to="/">Home</Link>
                 </div>
                 <div className="nav-item">
-                        <Link to="/reviews">Reviews</Link>
+                    <Link to="/reviews">Reviews</Link>
                 </div>
             </div>
         </div>

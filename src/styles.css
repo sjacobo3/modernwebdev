@@ -3,20 +3,24 @@
 body {
     padding: 0;
     margin: 0;
+    background-color: #F5F5F5;
+    color: #333;
 }
 
 /* home styles */
 .container {
     text-align: center;
     padding: 30px;
-    font-family: Amatic SC, sans-serif;
-    background-color: #F5F5F5;
+    font-family: 'Amatic SC', sans-serif;
+    font-size: 30px;
+
 }
 
 .dome {
     background-image: url("./assets/NotreDame.jpg");
     background-repeat: no-repeat;
     background-position: center;
+    border-bottom: 5px solid #8db8e2;
     height: 500px;
 }
 
@@ -29,6 +33,8 @@ body {
     padding: 0 30px;
     height: 60px;
     color: white;
+    font-weight: 600;
+
 }
 .nav-bar {
     display: flex;
@@ -52,6 +58,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding: 20px;
 }
 
 .auth-form-item {
@@ -60,10 +67,11 @@ body {
 
 .auth-form-text {
   text-align: center;
+
 }
 
 .main {
-    margin: 30px;
+    margin: 20px;
 }
 
 /* review page style */
@@ -100,4 +108,24 @@ body {
     padding: 8px; 
     width: auto;
     max-width: 400px;
+}
+
+.auth-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  margin-top: 30px;
+}
+
+.auth-buttons button {
+  padding: 12px 24px;
+  font-size: 16px;
+  border: none;
+  border-radius: 8px;
+  background-color: #193e63;
+  color: white;
+}
+
+.auth-buttons button:hover {
+  background-color: #14508e;
 }

@@ -62,7 +62,7 @@ const AuthLogin = () => {
         onSubmit={onSubmitHandler}
       />
       <p className="auth-form-text">
-        Not Registered? <Link to="/auth/register">Register Here</Link>
+        Not Registered? <Link to="/auth/register">Click to Create an Account</Link>
       </p>
     </>
   );

@@ -46,6 +46,7 @@ export const logoutUser = () => {
   return Parse.User.logOut()
     .then(() => {
       const currUser = Parse.User.current();
+      localStorage.clear();
       console.log("Current user should be null: ", currUser);
     })
     .catch((error) => {

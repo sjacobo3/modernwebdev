@@ -1,7 +1,8 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { authenticateUser, logoutUser } from "../../Services/AuthService";
 
 const Navigation = () => {
+  const navigate = useNavigate();
   return (
     <div className="navigation">
       <div className="nav-logo"></div>
@@ -19,9 +20,10 @@ const Navigation = () => {
             className="nav-item"
             onClick={async () => {
               await logoutUser();
+              navigate("/login");
             }}
           >
-            <Link to="/auth/login">Logout</Link>
+            Logout
           </div>
         ) : (
           ""

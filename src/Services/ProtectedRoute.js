@@ -1,12 +1,18 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { authenticateUser } from "./AuthService";
-import AuthLogin from "../Components/Auth/AuthLogin";
+import { useNavigate } from "react-router-dom";
 
 const ProtectedRoute = ({ element: Component, ...rest }) => {
-  console.log("Component: ", Component);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!authenticateUser()) {
+      navigate("/auth/login");
+    }
+  });
 
   // redirect to login page if not logged in
-  return authenticateUser() ? <Component {...rest} /> : <AuthLogin />;
+  return <Component />;
 };
 
 export default ProtectedRoute;

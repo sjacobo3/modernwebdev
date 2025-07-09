@@ -1,21 +1,12 @@
 import React from "react";
 import { authenticateUser } from "./AuthService";
-import { useNavigate } from "react-router-dom";
+import AuthLogin from "../Components/Auth/AuthLogin";
 
-const ProtectedRoute = ({ element: Component, flag, ...rest }) => {
-  const navigate = useNavigate();
-  const goBackHandler = () => {
-    navigate(-1); //prev page
-  };
-  console.log("rest: ", rest);
+const ProtectedRoute = ({ element: Component, ...rest }) => {
+  console.log("Component: ", Component);
 
-  return authenticateUser() ? (
-    <Component {...rest} />
-  ) : (
-    <div>
-      <p>Unaurthorized!</p> <button onClick={goBackHandler}>Go Back.</button>
-    </div>
-  );
+  // redirect to login page if not logged in
+  return authenticateUser() ? <Component {...rest} /> : <AuthLogin />;
 };
 
 export default ProtectedRoute;

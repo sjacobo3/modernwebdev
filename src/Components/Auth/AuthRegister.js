@@ -16,7 +16,7 @@ const AuthRegister = () => {
   // flag is the state to watch for add/remove updates
   const [add, setAdd] = useState(false);
 
-  // check if user is already logged logged in
+  // check if user is already logged in
   useEffect(() => {
     if (authenticateUser()) {
       alert("Already logged in!");

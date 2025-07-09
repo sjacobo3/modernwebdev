@@ -1,0 +1,103 @@
+@import url('https://fonts.googleapis.com/css2?family=Amatic+SC:wght@400;700&display=swap');
+
+body {
+    padding: 0;
+    margin: 0;
+}
+
+/* home styles */
+.container {
+    text-align: center;
+    padding: 30px;
+    font-family: Amatic SC, sans-serif;
+    background-color: #F5F5F5;
+}
+
+.dome {
+    background-image: url("./assets/NotreDame.jpg");
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 500px;
+}
+
+/* navigation styles */
+.navigation {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #8db8e2; 
+    padding: 0 30px;
+    height: 60px;
+    color: white;
+}
+.nav-bar {
+    display: flex;
+    gap: 25px;
+}
+.nav-item a {
+    text-decoration: none;
+    color: white;
+    font-weight: 500;
+    padding: 8px 12px;
+    border-radius: 5px;
+}
+
+.nav-item a:hover {
+  background-color: #193e63;
+  color: white;
+}
+
+/* auth form styles */
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.auth-form-item {
+  margin: 10px;
+}
+
+.auth-form-text {
+  text-align: center;
+}
+
+.main {
+    margin: 30px;
+}
+
+/* review page style */
+.review-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+    gap: 30px;
+}
+
+.review-item {
+    padding: 15px;
+    border-radius: 8px;
+    border: 1px solid #8db8e2;
+}
+
+.review-item:hover {
+    background-color: #8db8e2;
+    color: white;
+}
+
+.search {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.search select {
+    padding: 8px;
+    width: auto;
+    max-width: 400px;
+}
+.search input {
+    padding: 8px; 
+    width: auto;
+    max-width: 400px;
+}

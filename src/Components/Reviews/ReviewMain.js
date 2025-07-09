@@ -1,5 +1,3 @@
-import "./Reviews.css";
-
 import React, { useEffect, useState } from "react";
 import { getAllReviews } from "../../Services/ReviewService";
 import ReviewList from "./ReviewList";

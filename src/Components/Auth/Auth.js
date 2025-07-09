@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 const AuthModule = () => {
   return (
-    <div className="auth-buttons">
+    <div class="auth-buttons">
       <Link to="/auth/register">
         <button>Register</button>
       </Link>

@@ -69,3 +69,13 @@ export const fetchUserReviews = async () => {
   const results = await query.find();
   return results; // Return Parse objects, not JSON
 };
+
+export const sendPasswordResetEmail = (email) => {
+  return Parse.User.requestPasswordReset(email)
+    .then(() => {
+      console.log("Password reset email sent.");
+    })
+    .catch((error) => {
+      alert(`Error: ${error.message}`);
+    });
+};

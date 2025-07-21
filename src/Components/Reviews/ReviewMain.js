@@ -50,10 +50,13 @@ const ReviewMain = () => {
                 type="text"
                 placeholder="Search..."
                 value={searchBar}
-                onInput={(e) => setSearchBar(e.target.value)}
+                onChange={(e) => setSearchBar(e.target.value)}
                 />
+                <button onClick={() => setSearchBar("")}>Clear</button>
             </div>
-            < ReviewList reviews={filteredReviews} loading={loading} />
+
+            {!loading && filteredReviews.length === 0 && <p>No reviews found.</p>}
+            <ReviewList reviews={filteredReviews} loading={loading} />
         </div>
     );
 };

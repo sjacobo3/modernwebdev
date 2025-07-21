@@ -14,6 +14,9 @@ const Navigation = () => {
         <div className="nav-item">
           <Link to="/reviews">Reviews</Link>
         </div>
+        <div className="nav-item">
+          <Link to="/profile">Profile</Link>
+        </div>
 
         {authenticateUser() ? (
           <div

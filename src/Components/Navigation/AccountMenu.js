@@ -15,6 +15,7 @@ import { useNavigate } from "react-router-dom";
 export default function AccountMenu() {
   const navigate = useNavigate();
   const [isAuthenticated, setIsAuthenticated] = useState(authenticateUser());
+  const [currentUser, setCurrentUser] = useState(Parse.User.current());
   const [anchorEl, setAnchorEl] = useState(null);
 
   // menu open/close
@@ -30,12 +31,9 @@ export default function AccountMenu() {
   const logoutHandler = () => {
     logoutUser().then(() => {
       setIsAuthenticated(false);
-      navigate("/");
+      navigate("/home");
     });
   };
-
-  // get current user
-  const currentUser = Parse.User.current();
 
   return (
     <Box sx={{ flexGrow: 0 }}>
@@ -43,9 +41,6 @@ export default function AccountMenu() {
         <IconButton
           onClick={handleClick}
           sx={{ p: 0 }}
-          aria-controls={open ? "account-menu" : undefined}
-          aria-haspopup="true"
-          aria-expanded={open ? "true" : undefined}
         >
           <Avatar sx={{ width: 40, height: 40, fontSize: 18 }}>
             {isAuthenticated

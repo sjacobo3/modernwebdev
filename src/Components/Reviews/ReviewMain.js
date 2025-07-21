@@ -36,52 +36,52 @@ const ReviewMain = () => {
   });
 
   return (
-    <Container maxWidth="xl">
-    <Typography variant="h1" align="center" gutterBottom>
-      Reviews
-    </Typography>
+    <Container maxWidth="xl" sx={{ mb:4 }}>
+      <Typography variant="h1" align="center" gutterBottom>
+        Reviews
+      </Typography>
 
-    {/* Search Controls */}
-    <Box 
-      display="flex"
-      alignItems="center"
-      justifyContent="center"
-      gap={2}
-      mb={4}
-      flexWrap="wrap"
-    >
-      <FormControl size="small" sx={{ minWidth: 150 }}>
-        <InputLabel id="search-type-label">Filter By</InputLabel>
-        <Select
-          label="Filter By"
-          labelId="search-type-label"
-          id="searchType"
-          value={searchType}
-          onChange={ (e) => setSearchType(e.target.value) } 
-        >
-          <MenuItem value="courseCode">Course Code</MenuItem>
-        </Select>
-      </FormControl>
-
-      <TextField
-        size="small"
-        label="Search"
-        variant="outlined"
-        value={searchBar}
-        onChange={(e) => setSearchBar(e.target.value)}
-      />
-
-      <Button 
-        variant="outlined"
-        onClick={() => setSearchBar("")}
+      {/* Search Controls */}
+      <Box 
+        display="flex"
+        alignItems="center"
+        justifyContent="center"
+        gap={2}
+        mb={4}
+        flexWrap="wrap"
       >
-        Clear
-      </Button>
+        <FormControl size="small" sx={{ minWidth: 150 }}>
+          <InputLabel id="search-type-label">Filter By</InputLabel>
+          <Select
+            label="Filter By"
+            labelId="search-type-label"
+            id="searchType"
+            value={searchType}
+            onChange={ (e) => setSearchType(e.target.value) } 
+          >
+            <MenuItem value="courseCode">Course Code</MenuItem>
+          </Select>
+        </FormControl>
 
-    </Box>
-    
-    {/* (Filtered) Results */}
-    <ReviewList reviews={filteredReviews} loading={loading} />
+        <TextField
+          size="small"
+          label="Search"
+          variant="outlined"
+          value={searchBar}
+          onChange={(e) => setSearchBar(e.target.value)}
+        />
+
+        <Button 
+          variant="outlined"
+          onClick={() => setSearchBar("")}
+        >
+          Clear
+        </Button>
+
+      </Box>
+      
+      {/* (Filtered) Results */}
+      <ReviewList reviews={filteredReviews} loading={loading} />
 
     </Container>
   );

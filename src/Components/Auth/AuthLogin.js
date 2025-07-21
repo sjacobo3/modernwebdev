@@ -56,15 +56,14 @@ const AuthLogin = () => {
   };
 
   return (
-    <Box 
-      display="flex" 
-      flexDirection="column" 
-      alignItems="center" 
-      justifyContent="center" 
+    <Box
+      display="flex"
+      flexDirection="column"
+      alignItems="center"
+      justifyContent="center"
       gap={1}
-      sx={{ height: '90vh' }}
+      mt={8}
     >
-      
       <AuthForm
         user={currUser}
         isLogin={true}
@@ -72,8 +71,9 @@ const AuthLogin = () => {
         onSubmit={onSubmitHandler}
       />
 
-      <Typography align="center">
-        Not Registered? <Link to="/auth/register">Click to Create an Account</Link>
+      <Typography variant="body2" mt={2}>
+        Not Registered?{" "}
+        <Link to="/auth/register">Click to Create an Account</Link>
       </Typography>
     </Box>
   );

@@ -1,4 +1,11 @@
-import { Button, Card, CardActions, CardContent, Stack, Typography } from "@mui/material";
+import {
+  Button,
+  Card,
+  CardActions,
+  CardContent,
+  Stack,
+  Typography,
+} from "@mui/material";
 import React from "react";
 
 function ReviewItem({ review, onDelete, onEdit }) {
@@ -11,7 +18,7 @@ function ReviewItem({ review, onDelete, onEdit }) {
   const attendance = review.get("attendance");
 
   return (
-    <Card variant="outlined" sx={{ height:"100%" }}>
+    <Card variant="outlined" sx={{ height: "100%", p: 1 }}>
       <CardContent>
         <Typography variant="h6" gutterBottom>
           {courseCode}
@@ -43,7 +50,7 @@ function ReviewItem({ review, onDelete, onEdit }) {
       </CardContent>
 
       {(onEdit || onDelete) && (
-        <CardActions sx={{ justifyContent:"flex-end" }}>
+        <CardActions sx={{ justifyContent: "flex-end" }}>
           <Stack direction="row" spacing={1}>
             {onEdit && (
               <Button onClick={() => onEdit(review)} variant="outlined">
@@ -51,10 +58,14 @@ function ReviewItem({ review, onDelete, onEdit }) {
               </Button>
             )}
           </Stack>
-          
+
           <Stack direction="row" spacing={1}>
             {onDelete && (
-              <Button onClick={() => onDelete(review.id)} color="error" variant="outlined">
+              <Button
+                onClick={() => onDelete(review.id)}
+                color="error"
+                variant="outlined"
+              >
                 Delete
               </Button>
             )}

@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { fetchUserReviews } from "../../Services/AuthService";
-import { createReview, updateReview, removeReview } from "../../Services/ReviewService";
+import {
+  createReview,
+  updateReview,
+  removeReview,
+} from "../../Services/ReviewService";
 
 import ReviewList from "../Reviews/ReviewList";
 import ReviewForm from "../Reviews/ReviewForm";
@@ -65,7 +69,7 @@ const UserProfile = () => {
   };
 
   return (
-    <Container maxWidth="xl" sx={{ mt:4 }}>
+    <Container maxWidth="xl" sx={{ mt: 4 }}>
       <Typography variant="h1" align="center" gutterBottom>
         Your Profile
       </Typography>
@@ -77,15 +81,16 @@ const UserProfile = () => {
             setFormVisible(!isFormVisible);
           }}
         >
-          {isFormVisible ? "Cancel" : "Add Review"}
+          {isFormVisible ? "" : "Add Review"}
         </Button>
       </Box>
-      
 
       {isFormVisible && (
         // will be making a component to pop up
         <Box>
-          <Typography variant="h2">{editingReview ? "Edit Review" : "Add New Review"}</Typography>
+          <Typography variant="h2">
+            {editingReview ? "Edit Review" : "Add New Review"}
+          </Typography>
           <ReviewForm
             initialValues={editingReview}
             onSubmit={handleFormSubmit}
@@ -94,7 +99,9 @@ const UserProfile = () => {
         </Box>
       )}
 
-      <Typography variant="h4" gutterBottom>Your Reviews</Typography>
+      <Typography variant="h4" gutterBottom>
+        Your Reviews
+      </Typography>
       <ReviewList
         reviews={reviews}
         loading={loading}

@@ -6,10 +6,10 @@ const AuthForm = ({ user, isLogin, onChange, onSubmit }) => {
   return (
     <Paper elevation={3} sx={{ padding: 4, width: 400 }}>
       <Typography variant="h6" align="center">
-        { isLogin ? "Login" : "Register" }
+        {isLogin ? "Login" : "Register"}
       </Typography>
-      
-      <form onSubmit={onSubmit}>
+
+      <Box component="form" onSubmit={onSubmit}>
         {!isLogin && (
           <>
             <TextField
@@ -54,19 +54,14 @@ const AuthForm = ({ user, isLogin, onChange, onSubmit }) => {
           required
           fullWidth
           margin="normal"
-          />
+        />
 
-        <Box mt={ 2 }>
-          <Button 
-            type="submit" 
-            variant="contained"
-            fullWidth
-          >
+        <Box mt={2}>
+          <Button type="submit" variant="contained" fullWidth>
             Submit
           </Button>
         </Box>
-
-      </form>
+      </Box>
     </Paper>
   );
 };

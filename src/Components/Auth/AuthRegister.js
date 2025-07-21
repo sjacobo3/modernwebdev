@@ -56,20 +56,20 @@ const AuthRegister = () => {
   };
 
   return (
-    <Box 
-      display="flex" 
-      flexDirection="column" 
-      alignItems="center" 
-      justifyContent="center" 
+    <Box
+      display="flex"
+      flexDirection="column"
+      alignItems="center"
+      justifyContent="center"
       gap={1}
-      sx={{ height: '90vh' }}
+      mt={8}
     >
       <AuthForm
         user={newUser}
         onChange={onChangeHandler}
         onSubmit={onSubmitHandler}
       />
-      <Typography className="auth-form-text">
+      <Typography variant="body2" mt={2}>
         Already Registered? <Link to="/auth/login">Login Here</Link>
       </Typography>
     </Box>
@@ -77,4 +77,3 @@ const AuthRegister = () => {
 };
 
 export default AuthRegister;
-

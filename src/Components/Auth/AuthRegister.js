@@ -3,6 +3,8 @@ import { createUser, authenticateUser } from "../../Services/AuthService";
 import AuthForm from "./AuthForm";
 import { useNavigate, Link } from "react-router-dom";
 
+import { Box, Typography } from "@mui/material";
+
 const AuthRegister = () => {
   const navigate = useNavigate();
 
@@ -54,16 +56,23 @@ const AuthRegister = () => {
   };
 
   return (
-    <div>
+    <Box 
+      display="flex" 
+      flexDirection="column" 
+      alignItems="center" 
+      justifyContent="center" 
+      gap={1}
+      sx={{ height: '90vh' }}
+    >
       <AuthForm
         user={newUser}
         onChange={onChangeHandler}
         onSubmit={onSubmitHandler}
       />
-      <p className="auth-form-text">
+      <Typography className="auth-form-text">
         Already Registered? <Link to="/auth/login">Login Here</Link>
-      </p>
-    </div>
+      </Typography>
+    </Box>
   );
 };
 

@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { fetchUserReviews } from "../../Services/AuthService";
 import { createReview, updateReview, removeReview } from "../../Services/ReviewService";
+
 import ReviewList from "../Reviews/ReviewList";
 import ReviewForm from "../Reviews/ReviewForm";
+
+import { Box, Button, Container, Typography } from "@mui/material";
 
 const UserProfile = () => {
   const [reviews, setReviews] = useState([]);
@@ -62,35 +65,43 @@ const UserProfile = () => {
   };
 
   return (
-    <div className="container">
-      <h1>Your Profile</h1>
-      <button
-        onClick={() => {
-          resetForm(); // clear editing state when toggling form
-          setFormVisible(!isFormVisible);
-        }}
-      >
-        {isFormVisible ? "Cancel" : "Add Review"}
-      </button>
+    <Container maxWidth="xl" sx={{ mt:4 }}>
+      <Typography variant="h1" align="center" gutterBottom>
+        Your Profile
+      </Typography>
+
+      <Box display="flex" justifyContent="center" mb={2}>
+        <Button
+          onClick={() => {
+            resetForm(); // clear editing state when toggling form
+            setFormVisible(!isFormVisible);
+          }}
+        >
+          {isFormVisible ? "Cancel" : "Add Review"}
+        </Button>
+      </Box>
+      
 
       {isFormVisible && (
-        <div>
-          <h2>{editingReview ? "Edit Review" : "Add New Review"}</h2>
+        // will be making a component to pop up
+        <Box>
+          <Typography variant="h2">{editingReview ? "Edit Review" : "Add New Review"}</Typography>
           <ReviewForm
             initialValues={editingReview}
             onSubmit={handleFormSubmit}
             onCancel={resetForm}
           />
-        </div>
+        </Box>
       )}
 
+      <Typography variant="h4" gutterBottom>Your Reviews</Typography>
       <ReviewList
         reviews={reviews}
         loading={loading}
         onDelete={handleDelete}
         onEdit={handleEdit}
       />
-    </div>
+    </Container>
   );
 };
 

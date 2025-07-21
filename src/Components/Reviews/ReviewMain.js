@@ -2,63 +2,89 @@ import React, { useEffect, useState } from "react";
 import { getAllReviews } from "../../Services/ReviewService";
 import ReviewList from "./ReviewList";
 
-const ReviewMain = () => {
-    const [reviews, setReviews] = useState([]);
-    const [searchBar, setSearchBar] = useState("");
-    const [searchType, setSearchType] = useState("courseCode");
-    const [loading, setLoading] = useState(true);
+import { Box, Button, Container, FormControl, InputLabel, MenuItem, Select, TextField, Typography } from "@mui/material";
 
-    useEffect(() => {
-        getAllReviews() 
-            .then((results) => {
-                console.log("Fetched reviews:", results);
-                setReviews(results);
-                setLoading(false);
-            })
-            .catch((error) => {
-                console.error("Error fetching reviews:", error);
-                setLoading(false);
-            })
+const ReviewMain = () => {
+  const [reviews, setReviews] = useState([]);
+  const [searchBar, setSearchBar] = useState("");
+  const [searchType, setSearchType] = useState("courseCode");
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    getAllReviews()
+    .then((results) => {
+      console.log("Fetched reviews:", results);
+      setReviews(results);
+      setLoading(false);
+      })
+    .catch((error) => {
+      console.error("Error fetching reviews:", error);
+      setLoading(false);
+      })
     }, []);
 
-    const filteredReviews = reviews.filter((review) => {
-        const searchValue = searchBar.toLowerCase();    // filter by search
-        // can include more to searchType later
-        const courseCode = review.get("courseCode").toLowerCase();
+  const filteredReviews = reviews.filter((review) => {
+    const searchValue = searchBar.toLowerCase();    // filter by search
+    // can include more to searchType later
+    const courseCode = review.get("courseCode").toLowerCase();
 
-        // filtering by course code
-        if (searchType === "courseCode") {
-            return courseCode.includes(searchValue);
-        }
-        return true;
-    });
+    // filtering by course code
+    if (searchType === "courseCode") {
+      return courseCode.includes(searchValue);
+    }
+    return true;
+  });
 
-    return (
-        <div className="main">
-            <h1>Reviews</h1>
-            <div className="search">
-                <label htmlFor="searchType"><b>Select Filter:</b></label>
-                <select
-                id="searchType"
-                value={searchType}
-                onChange={(e) => setSearchType(e.target.value)}
-                >
-                <option value="courseCode">Course Code</option>
-                </select>
+  return (
+    <Container maxWidth="xl">
+    <Typography variant="h1" align="center" gutterBottom>
+      Reviews
+    </Typography>
 
-                <input
-                type="text"
-                placeholder="Search..."
-                value={searchBar}
-                onChange={(e) => setSearchBar(e.target.value)}
-                />
-                <button onClick={() => setSearchBar("")}>Clear</button>
-            </div>
+    {/* Search Controls */}
+    <Box 
+      display="flex"
+      alignItems="center"
+      justifyContent="center"
+      gap={2}
+      mb={4}
+      flexWrap="wrap"
+    >
+      <FormControl size="small" sx={{ minWidth: 150 }}>
+        <InputLabel id="search-type-label">Filter By</InputLabel>
+        <Select
+          label="Filter By"
+          labelId="search-type-label"
+          id="searchType"
+          value={searchType}
+          onChange={ (e) => setSearchType(e.target.value) } 
+        >
+          <MenuItem value="courseCode">Course Code</MenuItem>
+        </Select>
+      </FormControl>
 
-            {!loading && filteredReviews.length === 0 && <p>No reviews found.</p>}
-            <ReviewList reviews={filteredReviews} loading={loading} />
-        </div>
-    );
+      <TextField
+        size="small"
+        label="Search"
+        variant="outlined"
+        value={searchBar}
+        onChange={(e) => setSearchBar(e.target.value)}
+      />
+
+      <Button 
+        variant="outlined"
+        onClick={() => setSearchBar("")}
+      >
+        Clear
+      </Button>
+
+    </Box>
+    
+    {/* (Filtered) Results */}
+    <ReviewList reviews={filteredReviews} loading={loading} />
+
+    </Container>
+  );
 };
 
 export default ReviewMain;

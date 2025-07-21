@@ -1,62 +1,73 @@
 import React from "react";
 
+import { Box, Button, Paper, TextField, Typography } from "@mui/material";
+
 const AuthForm = ({ user, isLogin, onChange, onSubmit }) => {
   return (
-    <div className="auth-form">
-      {isLogin ? <h1>Login</h1> : <h1>Register</h1>}
+    <Paper elevation={3} sx={{ padding: 4, width: 400 }}>
+      <Typography variant="h6" align="center">
+        { isLogin ? "Login" : "Register" }
+      </Typography>
+      
       <form onSubmit={onSubmit}>
         {!isLogin && (
           <>
-            <div className="auth-form-item">
-              <input
-                type="text"
-                value={user.firstName}
-                onChange={onChange}
-                name="firstName"
-                placeholder="First Name*"
-                required
-              />
-            </div>
-            <div className="auth-form-item">
-              <input
-                type="text"
-                value={user.lastName}
-                onChange={onChange}
-                name="lastName"
-                placeholder="Last Name*"
-                required
-              />
-            </div>
+            <TextField
+              label="First Name"
+              value={user.firstName}
+              onChange={onChange}
+              name="firstName"
+              required
+              fullWidth
+              margin="normal"
+            />
+
+            <TextField
+              label="Last Name"
+              value={user.lastName}
+              onChange={onChange}
+              name="lastName"
+              required
+              fullWidth
+              margin="normal"
+            />
           </>
         )}
-        <div className="auth-form-item">
-          <input
-            type="email"
-            value={user.email}
-            onChange={onChange}
-            name="email"
-            placeholder="Email*"
-            required
+
+        <TextField
+          label="Email"
+          type="email"
+          value={user.email}
+          onChange={onChange}
+          name="email"
+          required
+          fullWidth
+          margin="normal"
+        />
+
+        <TextField
+          label="Password"
+          type="password"
+          value={user.password}
+          onChange={onChange}
+          name="password"
+          required
+          fullWidth
+          margin="normal"
           />
-        </div>
-        <div className="auth-form-item">
-          <input
-            type="password"
-            value={user.password}
-            onChange={onChange}
-            name="password"
-            placeholder="Password*"
-            min="0"
-            required
-          />
-        </div>
-        <div className="auth-form-item">
-          <button type="submit" onSubmit={onSubmit}>
+
+        <Box mt={ 2 }>
+          <Button 
+            type="submit" 
+            variant="contained"
+            fullWidth
+          >
             Submit
-          </button>
-        </div>
+          </Button>
+        </Box>
+
       </form>
-    </div>
+    </Paper>
   );
 };
 

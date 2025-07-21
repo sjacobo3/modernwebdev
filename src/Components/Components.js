@@ -20,7 +20,7 @@ const Components = () => {
     <Router>
       <Navigation />
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/home" element={<Home />} />
         <Route path="/auth/register" element={<AuthRegister />} />
         <Route path="/auth/login" element={<AuthLogin />} />
         <Route path="/auth/forgot" element={<AuthForgot />} />
@@ -32,6 +32,7 @@ const Components = () => {
           path="/profile"
           element={<ProtectedRoute element={UserProfile} />}
         />
+        <Route path="*" element={<Home />}replace />
         
       </Routes>
     </Router>

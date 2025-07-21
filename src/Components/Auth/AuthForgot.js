@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Box, Button, TextField, Typography } from "@mui/material";
+import { Box, Button, TextField, Typography, FormControl } from "@mui/material";
 import { sendPasswordResetEmail } from "../../Services/AuthService"; 
 import { useNavigate } from "react-router-dom";
 
@@ -26,13 +26,14 @@ const AuthForgot = () => {
       flexDirection="column" 
       alignItems="center" 
       justifyContent="center"
-      sx={{ height: "90vh" }}
+      mt={10}
     >
+      <Button onClick={() => navigate("/auth/login")}>Back</Button>
+      
       <Typography variant="h6" gutterBottom>Forgot Password</Typography>
-      <form onSubmit={handleSubmit}>
+      <FormControl onSubmit={handleSubmit} sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
         <TextField
           required
-          fullWidth
           type="email"
           label="Email"
           value={email}
@@ -42,7 +43,7 @@ const AuthForgot = () => {
         <Button variant="contained" type="submit">
           Send Reset Link
         </Button>
-      </form>
+      </FormControl>
     </Box>
   );
 };

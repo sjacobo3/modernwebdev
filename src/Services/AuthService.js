@@ -58,3 +58,14 @@ export const authenticateUser = () => {
   // return true or false, if current user is authenticated
   return Parse.User.current()?.authenticated();
 };
+
+export const fetchUserReviews = async () => {
+  const currentUser = Parse.User.current();
+  if (!currentUser) return [];
+
+  const Review = Parse.Object.extend('Review');
+  const query = new Parse.Query(Review);
+  query.equalTo('user', currentUser); // Query reviews where user field matches current user
+  const results = await query.find();
+  return results; // Return Parse objects, not JSON
+};

@@ -1,5 +1,3 @@
-import "../styles.css";
-
 import React from "react";
 import {
   BrowserRouter as Router,
@@ -14,6 +12,7 @@ import Home from "./Home/Home";
 import AuthRegister from "./Auth/AuthRegister";
 import AuthLogin from "./Auth/AuthLogin";
 import ReviewMain from "./Reviews/ReviewMain";
+import UserProfile from "./UserProfile/UserProfile";
 
 const Components = () => {
   return (
@@ -26,6 +25,10 @@ const Components = () => {
         <Route
           path="/reviews"
           element={<ProtectedRoute element={ReviewMain} />}
+        />
+        <Route
+          path="/profile"
+          element={<ProtectedRoute element={UserProfile} />}
         />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>

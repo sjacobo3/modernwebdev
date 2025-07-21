@@ -1,33 +1,102 @@
 import Parse from "parse";
-// CREATE operation - new review with Name
-export const createReview = (name) => {
-  console.log("Creating: ", name);
+
+// apply fields to a review object
+const setReviewFields = (review, data) => {
+  review.set("courseCode", data.courseCode);
+  review.set("rating", parseInt(data.rating));
+  review.set("difficulty", parseInt(data.difficulty));
+  review.set("comment", data.comment);
+  review.set("gradeReceived", data.gradeReceived);
+  review.set("takeAgain", data.takeAgain);
+  review.set("attendance", data.attendance);
+};
+
+// CREATE
+export const createReview = (reviewData) => {
   const Review = Parse.Object.extend("Review");
   const review = new Review();
 
-  // using .set() to UPDATE the object
-  review.set("name", name);
-  return review.save().then((result) => result);
+  const currentUser = Parse.User.current();
+  if (!currentUser) return Promise.reject("No current user");
+
+  review.set("user", currentUser);
+  setReviewFields(review, reviewData);
+
+  return review.save()
+    .then((savedReview) => savedReview)
+    .catch((err) => {
+      console.error("Error creating review:", err);
+      throw err;
+    });
 };
 
-// READ operation - get all reviews in Parse class Review
+// UPDATE
+export const updateReview = (id, reviewData) => {
+  const Review = Parse.Object.extend("Review");
+  const query = new Parse.Query(Review);
+
+  return query.get(id)
+    .then((review) => {
+      setReviewFields(review, reviewData);
+      return review.save();
+    })
+    .then((updatedReview) => updatedReview)
+    .catch((err) => {
+      console.error("Error updating review:", err);
+      throw err;
+    });
+};
+
+// GET ALL
 export const getAllReviews = () => {
   const Review = Parse.Object.extend("Review");
   const query = new Parse.Query(Review);
-  return query.find().then((results) => results);
+  query.include("user");
+
+  return query.find()
+    .then((results) => results)
+    .catch((err) => {
+      console.error("Error fetching all reviews:", err);
+      throw err;
+    });
 };
 
-// READ operation - get review by id
-export const getByProfessor = (id) => {
+// GET BY ID
+export const getReviewById = (id) => {
   const Review = Parse.Object.extend("Review");
   const query = new Parse.Query(Review);
-  return query.get(id);
+  query.include("user");
+
+  return query.get(id)
+    .then((review) => review)
+    .catch((err) => {
+      console.error("Error fetching review by ID:", err);
+      throw err;
+    });
 };
 
-// DELETE operation - remove review by id
+// DELETE
 export const removeReview = (id) => {
   const Review = Parse.Object.extend("Review");
   const query = new Parse.Query(Review);
-  return query.get(id).then((review) => review.destroy());
-};
 
+  return query.get(id)
+    .then((review) => {
+      const currentUser = Parse.User.current();
+      if (!currentUser) throw new Error("No current user");
+
+      const owner = review.get("user");
+      if (owner?.id !== currentUser.id) {
+        throw new Error("Unauthorized to delete this review");
+      }
+
+      return review.destroy();
+    })
+    .then(() => {
+      return true;
+    })
+    .catch((err) => {
+      console.error("Error deleting review:", err);
+      throw err;
+    });
+};

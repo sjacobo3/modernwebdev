@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { authenticateUser } from "./AuthService";
 import { useNavigate } from "react-router-dom";
 
@@ -9,7 +9,7 @@ const ProtectedRoute = ({ element: Component, ...rest }) => {
     if (!authenticateUser()) {
       navigate("/auth/login");
     }
-  });
+  }, [navigate]);
 
   // redirect to login page if not logged in
   return <Component />;

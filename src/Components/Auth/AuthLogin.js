@@ -3,6 +3,8 @@ import { loginUser, authenticateUser } from "../../Services/AuthService";
 import AuthForm from "./AuthForm";
 import { useNavigate, Link } from "react-router-dom";
 
+import { Box, Typography } from "@mui/material";
+
 const AuthLogin = () => {
   const navigate = useNavigate();
 
@@ -54,17 +56,26 @@ const AuthLogin = () => {
   };
 
   return (
-    <>
+    <Box
+      display="flex"
+      flexDirection="column"
+      alignItems="center"
+      justifyContent="center"
+      gap={1}
+      mt={8}
+    >
       <AuthForm
         user={currUser}
         isLogin={true}
         onChange={onChangeHandler}
         onSubmit={onSubmitHandler}
       />
-      <p className="auth-form-text">
-        Not Registered? <Link to="/auth/register">Click to Create an Account</Link>
-      </p>
-    </>
+
+      <Typography variant="body2" mt={2}>
+        Not Registered?{" "}
+        <Link to="/auth/register">Click to Create an Account</Link>
+      </Typography>
+    </Box>
   );
 };
 

@@ -10,6 +10,11 @@ export const createUser = (newUser) => {
   user.set("password", newUser.password);
   user.set("email", newUser.email);
 
+  // ACL to allow public read access for authenticated users
+  const acl = new Parse.ACL();
+  acl.setPublicReadAccess(true);
+  user.setACL(acl);
+
   console.log("User: ", user);
 
   return user

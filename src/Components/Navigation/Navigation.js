@@ -1,11 +1,12 @@
 import Parse from "parse";
 import { useState, useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
-import { logoutUser, authenticateUser } from "../../Services/AuthService";
+import { authenticateUser } from "../../Services/AuthService";
 
 import NavigationView from "./NavigationView";
 
-const pages = ['Home', 'Reviews'];
+const pages = ['Home', 'Reviews', 'Profile'];
+const settings = ["Login", "Register"];
 
 const Navigation = () => {
   
@@ -13,10 +14,11 @@ const Navigation = () => {
 
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
-  const [isAuthenticated, setIsAuthenticated] = useState(authenticateUser());
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   useEffect(() => {
-    setIsAuthenticated(!!Parse.User.current());
+    const isAuthenticated = authenticateUser();
+    setIsAuthenticated(isAuthenticated);
   }, []);
 
   const handleOpenNavMenu = (event) => {
@@ -40,41 +42,22 @@ const Navigation = () => {
     navigate(page.toLowerCase());
   };
 
-  const setSettings = () => {
-    if (isAuthenticated) {
-      return ["Profile", "Logout"];
-    }
-    return ["Login", "Register"];
-  };
-
-  const settings = setSettings();
-
   const handleUserActions = (action) => {
     handleCloseUserMenu();
-    if (action === "Logout") {
-      logoutUser().then(() => {
-        setIsAuthenticated(false);
-        navigate("/home");
-      });
-    }
-    else if (action === "Login") {
+    
+    if (action === "Login") {
       navigate("/auth/login");
     }
     else if (action === "Register") {
       navigate("/auth/register");
     }
-    else if (action === "Profile") {
-      navigate("/profile");
-    }
   }
 
-  const getUser = () => {
-    return Parse.User.current();
-  };
-  const userInitial =
-    getUser() && getUser().get("firstName") && getUser().get("lastName")
-      ? getUser().get("firstName").charAt(0) + getUser().get("lastName").charAt(0)
-      : "?";
+  const getUserInitial = () => {
+    const user = Parse.User.current();
+
+    return user ? user.get("firstName").charAt(0) + user.get("lastName").charAt(0) : "?";
+  }
 
   return (
     <NavigationView
@@ -87,7 +70,8 @@ const Navigation = () => {
       handleOpenUserMenu={handleOpenUserMenu}
       handleCloseUserMenu={handleCloseUserMenu}
       handlePageNav={handlePageNav}
-      userInitial={userInitial}
+      userInitial={getUserInitial()}
+      isAuthenticated={isAuthenticated}
       handleUserActions={handleUserActions}
     />
   )

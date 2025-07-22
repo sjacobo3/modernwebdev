@@ -15,6 +15,7 @@ const NavigationView = ({
     handleOpenUserMenu,
     handleCloseUserMenu,
     userInitial,
+    isAuthenticated,
     handleUserActions
 }) => (
     <AppBar position="static" elevation={0}>
@@ -75,11 +76,12 @@ const NavigationView = ({
                         anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
                         sx={{ mt: 1 }}
                     >
-                        {settings.map((setting) => (
+                        {!isAuthenticated && (
+                        settings.map((setting) => (
                             <MenuItem key={setting} onClick={() => handleUserActions(setting)}>
                                 <Typography sx={{ textAlign: 'center'}}>{setting}</Typography>
                             </MenuItem>
-                        ))}
+                        )))}
                     </Menu>
                 </Box>
             </Toolbar>

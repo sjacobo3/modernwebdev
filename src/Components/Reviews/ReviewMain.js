@@ -9,12 +9,14 @@ const ReviewMain = () => {
   const [searchBar, setSearchBar] = useState("");
   const [searchType, setSearchType] = useState("courseCode");
   const [loading, setLoading] = useState(true);
+  const [showUser, setShowUser] = useState(true);
 
   useEffect(() => {
     getAllReviews()
     .then((results) => {
       console.log("Fetched reviews:", results);
       setReviews(results);
+      setShowUser(true);
       setLoading(false);
       })
     .catch((error) => {
@@ -60,6 +62,7 @@ const ReviewMain = () => {
             onChange={ (e) => setSearchType(e.target.value) } 
           >
             <MenuItem value="courseCode">Course Code</MenuItem>
+            {/* add more filters here */}
           </Select>
         </FormControl>
 
@@ -81,7 +84,7 @@ const ReviewMain = () => {
       </Box>
       
       {/* (Filtered) Results */}
-      <ReviewList reviews={filteredReviews} loading={loading} />
+      <ReviewList reviews={filteredReviews} loading={loading} showUser={showUser} />
 
     </Container>
   );

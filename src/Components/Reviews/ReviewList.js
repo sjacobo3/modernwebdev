@@ -3,7 +3,7 @@ import ReviewItem from "./ReviewItem";
 
 import { CircularProgress, Container, Grid, Typography } from "@mui/material";
 
-const ReviewList = ({ reviews = [], loading, onDelete, onEdit }) => {
+const ReviewList = ({ reviews = [], loading, onDelete, onEdit, showUser }) => {
   if (loading) {
     return (
       <Grid container justifyContent="center" mt={4}>
@@ -22,10 +22,10 @@ const ReviewList = ({ reviews = [], loading, onDelete, onEdit }) => {
 
   return (
     <Container maxWidth="xl">
-      <Grid container spacing={3} mt={2} sx={{ border: "1px solid red" }}>
+      <Grid container spacing={3} mt={2}>
         {reviews.map((review) => (
-          <Grid key={review.id}>
-            <ReviewItem review={review} onDelete={onDelete} onEdit={onEdit} />
+          <Grid size={{ xs: 12, md: 6, lg: 4 }} key={review.id}>
+            <ReviewItem review={review} onDelete={onDelete} onEdit={onEdit} showUser={showUser} />
           </Grid>
         ))}
       </Grid>

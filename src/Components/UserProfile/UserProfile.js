@@ -1,10 +1,12 @@
+import Parse from "parse";
 import React, { useEffect, useState } from "react";
-import { fetchUserReviews } from "../../Services/AuthService";
+import { fetchUserReviews, logoutUser } from "../../Services/AuthService";
 import {
   createReview,
   updateReview,
   removeReview,
 } from "../../Services/ReviewService";
+import { useNavigate } from "react-router-dom";
 
 import ReviewList from "../Reviews/ReviewList";
 import ReviewForm from "../Reviews/ReviewForm";
@@ -12,6 +14,9 @@ import ReviewForm from "../Reviews/ReviewForm";
 import { Box, Button, Container, Typography } from "@mui/material";
 
 const UserProfile = () => {
+
+  const navigate = useNavigate();
+
   const [reviews, setReviews] = useState([]);
   const [loading, setLoading] = useState(true);
   const [isFormVisible, setFormVisible] = useState(false);
@@ -68,10 +73,19 @@ const UserProfile = () => {
     setFormVisible(false);
   };
 
+  const handleLogout = () => {
+    logoutUser().then(() => {
+      navigate("/home");
+    });
+  };
+
+  
+  const userFullName = Parse.User.current() ? Parse.User.current().get("firstName") + " " + Parse.User.current().get("lastName") : "";
+
   return (
-    <Container maxWidth="xl" sx={{ mt: 4 }}>
+    <Container maxWidth="xl" sx={{ my: 4 }}>
       <Typography variant="h1" align="center" gutterBottom>
-        Your Profile
+        {userFullName}
       </Typography>
 
       <Box display="flex" justifyContent="center" mb={2}>
@@ -99,15 +113,23 @@ const UserProfile = () => {
         </Box>
       )}
 
-      <Typography variant="h4" gutterBottom>
+      <Typography variant="h4" gutterBottom align="center">
         Your Reviews
       </Typography>
+
       <ReviewList
         reviews={reviews}
         loading={loading}
         onDelete={handleDelete}
         onEdit={handleEdit}
+        showUser={false}
       />
+
+      <Box display="flex" justifyContent="center" mt={4}>
+        <Button variant="contained" color="error" onClick={handleLogout}>
+          Logout
+        </Button>
+      </Box>
     </Container>
   );
 };

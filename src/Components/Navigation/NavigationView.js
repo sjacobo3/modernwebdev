@@ -1,16 +1,22 @@
 import React from "react";
 
 import { AppBar, Box, Toolbar, IconButton, Typography, Menu,
-    Button, MenuItem, Container } from '@mui/material';
+    Button, MenuItem, Container, Tooltip, Avatar } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
-import AccountMenu from "./AccountMenu";
 
 const NavigationView = ({
     pages,
+    settings,
     anchorElNav, 
+    anchorElUser,
     handleOpenNavMenu,
     handleCloseNavMenu,
     handlePageNav,
+    handleOpenUserMenu,
+    handleCloseUserMenu,
+    handleUserNav,
+    userInitial,
+    handleUserActions
 }) => (
     <AppBar position="static" elevation={0}>
         <Container maxWidth="xl">
@@ -33,9 +39,12 @@ const NavigationView = ({
 
                 {/* Mobile Hamburger Navigation */}
                 <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
-                    <IconButton onClick={handleOpenNavMenu}>
-                        <MenuIcon />
-                    </IconButton>
+                    <Tooltip title="Open navigation">
+                        <IconButton onClick={handleOpenNavMenu}>
+                            <MenuIcon />
+                        </IconButton>
+                    </Tooltip>
+
                     <Menu anchorEl={anchorElNav} open={Boolean(anchorElNav)} onClose={handleCloseNavMenu}
                         anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
                         transformOrigin={{ vertical: 'top', horizontal: 'left' }}
@@ -49,8 +58,30 @@ const NavigationView = ({
                 </Box>
 
                 {/* Profile Menu */}
-                <Box>
-                    <AccountMenu />
+                <Box sx={{ flexGrow: 0 }}>
+                    <Tooltip title="Account settings">
+                        <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                            <Avatar sx={{ width: 40, height: 40, fontSize: 18 }}>
+                                {userInitial}
+                            </Avatar>
+                        </IconButton>
+                    </Tooltip>
+
+                    <Menu
+                        anchorEl={anchorElUser}
+                        id="account-menu"
+                        open={Boolean(anchorElUser)}
+                        onClose={handleCloseUserMenu}
+                        transformOrigin={{ horizontal: "right", vertical: "top" }}
+                        anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
+                        sx={{ mt: 1 }}
+                    >
+                        {settings.map((setting) => (
+                            <MenuItem key={setting} onClick={() => handleUserActions(setting)}>
+                                <Typography sx={{ textAlign: 'center'}}>{setting}</Typography>
+                            </MenuItem>
+                        ))}
+                    </Menu>
                 </Box>
             </Toolbar>
         </Container>

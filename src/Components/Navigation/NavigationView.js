@@ -14,7 +14,6 @@ const NavigationView = ({
     handlePageNav,
     handleOpenUserMenu,
     handleCloseUserMenu,
-    handleUserNav,
     userInitial,
     handleUserActions
 }) => (
@@ -60,7 +59,7 @@ const NavigationView = ({
                 {/* Profile Menu */}
                 <Box sx={{ flexGrow: 0 }}>
                     <Tooltip title="Account settings">
-                        <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                        <IconButton onClick={handleOpenUserMenu}>
                             <Avatar sx={{ width: 40, height: 40, fontSize: 18 }}>
                                 {userInitial}
                             </Avatar>

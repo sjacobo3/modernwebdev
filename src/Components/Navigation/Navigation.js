@@ -40,11 +40,6 @@ const Navigation = () => {
     navigate(page.toLowerCase());
   };
 
-  const handleUserNav = (setting) => {
-    handleCloseUserMenu();
-    navigate(setting.toLowerCase());
-  };
-
   const setSettings = () => {
     if (isAuthenticated) {
       return ["Profile", "Logout"];
@@ -55,6 +50,7 @@ const Navigation = () => {
   const settings = setSettings();
 
   const handleUserActions = (action) => {
+    handleCloseUserMenu();
     if (action === "Logout") {
       logoutUser().then(() => {
         setIsAuthenticated(false);
@@ -91,7 +87,6 @@ const Navigation = () => {
       handleOpenUserMenu={handleOpenUserMenu}
       handleCloseUserMenu={handleCloseUserMenu}
       handlePageNav={handlePageNav}
-      handleUserNav={handleUserNav}
       userInitial={userInitial}
       handleUserActions={handleUserActions}
     />

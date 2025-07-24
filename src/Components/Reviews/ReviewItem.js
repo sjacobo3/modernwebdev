@@ -28,6 +28,7 @@ function ReviewItem({ review, onDelete, onEdit, showUser, onReply, replies = [],
   const takeAgain = review.get("takeAgain");
   const attendance = review.get("attendance");
 
+
   const handleReplySubmit = () => {
     if (onReply && replyText.trim()) {
       onReply(review.id, replyText);
@@ -35,6 +36,13 @@ function ReviewItem({ review, onDelete, onEdit, showUser, onReply, replies = [],
     setReplyText("");
     setIsReplying(false);
   };
+
+
+  const user = review.get("user");
+  const firstName = user?.get("firstName");
+  const lastName = user?.get("lastName");
+
+
 
   return (
     <Card variant="outlined" sx={{ height: "100%", p: 1 }}>

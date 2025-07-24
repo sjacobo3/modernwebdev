@@ -21,6 +21,10 @@ function ReviewItem({ review, onDelete, onEdit, showUser }) {
   const takeAgain = review.get("takeAgain");
   const attendance = review.get("attendance");
 
+  const user = review.get("user");
+  const firstName = user?.get("firstName");
+  const lastName = user?.get("lastName");
+
   return (
     <Card variant="outlined" sx={{ height: "100%", p: 1 }}>
 
@@ -30,13 +34,13 @@ function ReviewItem({ review, onDelete, onEdit, showUser }) {
             <IconButton>
               <Avatar sx={{ width: 30, height: 30, fontSize: 18 }} />
             </IconButton>
-            <Typography variant="h6" gutterBottom>
-              Anonymous
+            <Typography variant="h6"  >
+              {firstName} {lastName}
             </Typography>
           </Box>
         )}
 
-        <Typography variant="h6" gutterBottom>
+        <Typography variant="h6"  >
           {courseCode}
         </Typography>
 

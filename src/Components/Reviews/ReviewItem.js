@@ -14,19 +14,12 @@ import {
   TextField,
 } from "@mui/material";
 
-<<<<<<< HEAD
 import { isUserAuthenticated, getCurrentUser } from "../../Services/AuthService";
 import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt';   
 import { useNavigate } from "react-router-dom";
 
 function ReviewItem({ review, onDelete, onEdit, showUser, onReply, replies = [], onDeleteReply, canDeleteReplies = false, seeReplyButton  }) { //make replies array to collect responses
   const navigate = useNavigate();
-=======
-import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt'; // like icon 
-import { Reviews } from "@mui/icons-material";
-
-//import React from "react";        
->>>>>>> aa6a073033d44c36984035594da55c0cdd87e6b7
 
   const [isReplying, setIsReplying] = useState(false);
   const [replyText, setReplyText] = useState("");
@@ -141,7 +134,7 @@ import { Reviews } from "@mui/icons-material";
             <Typography variant="subtitle2" gutterBottom>
               Replies:
             </Typography>
-            {replies[Reviews.id]?.map((r,idx) => {
+            {replies[review.id]?.map((r,idx) => {
               const replyText = r.get("userReply");
               const replyUser = r.get("user");
               const currentUser = Parse.User.current();

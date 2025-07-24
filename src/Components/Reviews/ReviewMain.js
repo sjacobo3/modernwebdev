@@ -150,11 +150,7 @@ const ReviewMain = () => {
         <Button variant="outlined" onClick={() => { setSearchBar(""); setMajorRequirement(""); setSemester(""); }}>Clear</Button>
       </Box>
 
-<<<<<<< HEAD
-      <ReviewList reviews={filteredReviews} loading={loading} showUser={showUser} seeReplyButton={true} />
-=======
       <ReviewList reviews={filteredReviews} loading={loading} showUser={showUser} onDeleteReply={handleDeleteReply} canDeleteReplies={true}   />
->>>>>>> aa6a073033d44c36984035594da55c0cdd87e6b7
     </Container>
   );
 };

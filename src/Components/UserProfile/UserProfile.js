@@ -10,6 +10,7 @@ import { useNavigate } from "react-router-dom";
 
 import ReviewList from "../Reviews/ReviewList";
 import ReviewForm from "../Reviews/ReviewForm";
+import {removeReply} from "../../Services/ReplyService";
 
 import { Box, Button, Container, Typography } from "@mui/material";
 
@@ -79,6 +80,15 @@ const UserProfile = () => {
     });
   };
 
+//delte replies
+const handleDeleteReply = async (replyId) => {
+  try {
+    await removeReply(replyId);
+    await loadReviews(); // or trigger state update for replies
+  } catch (err) {
+    alert("Failed to delete reply");
+  }
+};
   
   const userFullName = Parse.User.current() ? Parse.User.current().get("firstName") + " " + Parse.User.current().get("lastName") : "";
 
@@ -123,6 +133,8 @@ const UserProfile = () => {
         onDelete={handleDelete}
         onEdit={handleEdit}
         showUser={false}
+        onDeleteReply={handleDeleteReply} 
+        canDeleteReplies={true}
       />
 
       <Box display="flex" justifyContent="center" mt={4}>

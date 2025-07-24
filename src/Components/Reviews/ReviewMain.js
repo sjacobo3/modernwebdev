@@ -28,11 +28,14 @@ const ReviewMain = () => {
   const filteredReviews = reviews.filter((review) => {
     const searchValue = searchBar.toLowerCase();    // filter by search
     // can include more to searchType later
-    const courseCode = review.get("courseCode").toLowerCase();
+    //const courseCode = review.get("courseCode").toLowerCase();
 
     // filtering by course code
     if (searchType === "courseCode") {
-      return courseCode.includes(searchValue);
+      const courseCode = review?.get?.("courseCode");
+      if (typeof courseCode !== "string") return false;
+      return courseCode?.toLowerCase().includes(searchValue);
+      //return courseCode.includes(searchValue);
     }
     return true;
   });
@@ -84,7 +87,11 @@ const ReviewMain = () => {
       </Box>
       
       {/* (Filtered) Results */}
-      <ReviewList reviews={filteredReviews} loading={loading} showUser={showUser} />
+      <ReviewList 
+      reviews={filteredReviews} 
+      loading={loading} 
+      showUser={showUser} 
+      />
 
     </Container>
   );

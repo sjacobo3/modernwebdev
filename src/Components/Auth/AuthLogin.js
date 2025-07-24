@@ -76,7 +76,7 @@ const AuthLogin = () => {
         <Link to="/auth/register">Click to Create an Account</Link>
       </Typography>
 
-      <Typography align="center">
+      <Typography variant="body2" mt={2} align="center">
        Click <Link to="/auth/forgot">Forgot Password?</Link>
       </Typography>
     </Box>

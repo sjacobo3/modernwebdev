@@ -6,12 +6,15 @@ import { Box, Button, Container, TextField, Typography, Select, MenuItem, FormCo
 const ReviewMain = () => {
   const [reviews, setReviews] = useState([]);
   const [searchBar, setSearchBar] = useState("");
+  
   const [loading, setLoading] = useState(true);
   const [showUser, setShowUser] = useState(true);
   const [searchType, setSearchType] = useState("all");
   const [majorRequirement, setMajorRequirement] = useState('');
   const [semester, setSemester] = useState('');
+  const [searchType, setSearchType] = useState("courseCode"); //default
 
+  
   // get all reviews
   const fetchReviews = () => {
     setLoading(true);
@@ -26,10 +29,11 @@ const ReviewMain = () => {
         setLoading(false);
       });
   };
-
+  
   useEffect(() => {
     fetchReviews();
   }, []);
+
 
   // filter reviews by selected search type, then by search bar
   const filteredReviews = reviews.filter((review) => {
@@ -52,8 +56,18 @@ const ReviewMain = () => {
     if (semester && review.get("semester") !== semester) {
       return false;
     }
-    return matches;
-  });
+    
+    return true;
+  })
+  .sort((a, b) => {
+    if (searchType === "likes") {
+      const likesA = a.get("likes")?.length || 0; 
+      const likesB = b.get("likes")?.length || 0;
+      return likesB - likesA; // Sort by likes in descending order
+    } else {
+      return 0
+    }
+    });
 
   return (
     <Container maxWidth="xl" sx={{ mb:4 }}>
@@ -70,6 +84,7 @@ const ReviewMain = () => {
         mb={4}
         flexWrap="wrap"
       >
+
         <FormControl size="small" sx={{ minWidth: 150 }}>
           <InputLabel id="search-type-label">Filter By</InputLabel>
           <Select
@@ -84,6 +99,7 @@ const ReviewMain = () => {
             <MenuItem value="department">Department</MenuItem>
             <MenuItem value="majorRequirement">Major Requirement</MenuItem>
             <MenuItem value="semester">Semester</MenuItem>
+            <MenuItem value="likes">Most Liked</MenuItem>
           </Select>
         </FormControl>
 

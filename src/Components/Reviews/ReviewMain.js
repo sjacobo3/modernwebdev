@@ -7,10 +7,12 @@ import { Box, Button, Container, FormControl, InputLabel, MenuItem, Select, Text
 const ReviewMain = () => {
   const [reviews, setReviews] = useState([]);
   const [searchBar, setSearchBar] = useState("");
-  const [searchType, setSearchType] = useState("courseCode");
+  const [searchType, setSearchType] = useState("courseCode"); //default
   const [loading, setLoading] = useState(true);
   const [showUser, setShowUser] = useState(true);
+  //const [sortType, setSortType] = useState("recent");
 
+  
   // get all reviews
   useEffect(() => {
     getAllReviews()
@@ -26,6 +28,7 @@ const ReviewMain = () => {
       })
     }, []);
 
+    //filter / sort reviews
   const filteredReviews = reviews.filter((review) => {
     const searchValue = searchBar.toLowerCase();    // filter by search
     // can include more to searchType later
@@ -39,7 +42,16 @@ const ReviewMain = () => {
       //return courseCode.includes(searchValue);
     }
     return true;
-  });
+  })
+  .sort((a, b) => {
+    if (searchType === "likes") {
+      const likesA = a.get("likes")?.length || 0; 
+      const likesB = b.get("likes")?.length || 0;
+      return likesB - likesA; // Sort by likes in descending order
+    } else {
+      return 0
+    }
+    });
 
   return (
     <Container maxWidth="xl" sx={{ mb:4 }}>
@@ -56,6 +68,7 @@ const ReviewMain = () => {
         mb={4}
         flexWrap="wrap"
       >
+
         <FormControl size="small" sx={{ minWidth: 150 }}>
           <InputLabel id="search-type-label">Filter By</InputLabel>
           <Select
@@ -66,6 +79,7 @@ const ReviewMain = () => {
             onChange={ (e) => setSearchType(e.target.value) } 
           >
             <MenuItem value="courseCode">Course Code</MenuItem>
+            <MenuItem value="likes">Most Liked</MenuItem>
             {/* add more filters here */}
           </Select>
         </FormControl>

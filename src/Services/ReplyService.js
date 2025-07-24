@@ -72,6 +72,7 @@ export const removeReply = (replyId) => {
     .then(() => {
       return true;
     })
+    .then(() => true)
     .catch((err) => {
       console.error("Error deleting reply:", err);
       throw err;

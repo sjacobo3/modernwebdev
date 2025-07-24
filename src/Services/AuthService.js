@@ -10,7 +10,7 @@ export const createUser = (newUser) => {
   user.set("password", newUser.password);
   user.set("email", newUser.email);
 
-  // ACL to allow public read access for authenticated users
+  // all users will have public read access
   const acl = new Parse.ACL();
   acl.setPublicReadAccess(true);
   user.setACL(acl);
@@ -59,21 +59,14 @@ export const logoutUser = () => {
     });
 };
 
-export const authenticateUser = () => {
-  // return true or false, if current user is authenticated
+export const isUserAuthenticated  = () => {
+  // return true or false, if current user is logged in
   return Parse.User.current()?.authenticated();
 };
 
-export const fetchUserReviews = async () => {
-  const currentUser = Parse.User.current();
-  if (!currentUser) return [];
-
-  const Review = Parse.Object.extend('Review');
-  const query = new Parse.Query(Review);
-  query.equalTo('user', currentUser); // Query reviews where user field matches current user
-  const results = await query.find();
-  return results; // Return Parse objects, not JSON
-};
+export const getCurrentUser = () => {
+  return Parse.User.current();
+}
 
 export const sendPasswordResetEmail = (email) => {
   return Parse.User.requestPasswordReset(email)
@@ -84,3 +77,16 @@ export const sendPasswordResetEmail = (email) => {
       alert(`Error: ${error.message}`);
     });
 };
+
+// get all users, excluding current user
+export const getAllUsers = () => {
+  const query = new Parse.Query("User");
+  return query.find().then((users) => {
+    // exclude current user
+    const filteredUsers = users.filter((user) => user.id !== Parse.User.current().id);
+    return filteredUsers;
+  }).catch((error) => {
+    console.error(error);
+    return [];
+  });
+}

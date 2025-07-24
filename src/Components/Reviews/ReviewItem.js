@@ -37,12 +37,18 @@ function ReviewItem({ review, onDelete, onEdit, showUser, onReply, replies = [],
     setIsReplying(false);
   };
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> ac4fa3236696fe84434e77c66019075d2e302e6d
   const user = review.get("user");
   const firstName = user?.get("firstName");
   const lastName = user?.get("lastName");
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> ac4fa3236696fe84434e77c66019075d2e302e6d
 
   return (
     <Card variant="outlined" sx={{ height: "100%", p: 1 }}>

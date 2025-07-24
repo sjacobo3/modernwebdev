@@ -76,7 +76,7 @@ const UserProfile = () => {
       navigate("/home");
     });
   };
-
+  
 //delte replies
 const handleDeleteReply = async (replyId) => {
   try {
@@ -86,8 +86,7 @@ const handleDeleteReply = async (replyId) => {
     alert("Failed to delete reply");
   }
 };
-  
-
+ 
   const userFullName = Parse.User.current() ? Parse.User.current().get("firstName") + " " + Parse.User.current().get("lastName") : "";
 
   return (

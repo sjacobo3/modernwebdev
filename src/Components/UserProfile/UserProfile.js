@@ -1,11 +1,8 @@
 import Parse from "parse";
 import React, { useEffect, useState } from "react";
-import { fetchUserReviews, logoutUser } from "../../Services/AuthService";
-import {
-  createReview,
-  updateReview,
-  removeReview,
-} from "../../Services/ReviewService";
+import { logoutUser } from "../../Services/AuthService";
+import { fetchUserReviews } from "../../Services/ReviewService";
+import { createReview, updateReview, removeReview } from "../../Services/ReviewService";
 import { useNavigate } from "react-router-dom";
 
 import ReviewList from "../Reviews/ReviewList";
@@ -79,7 +76,7 @@ const UserProfile = () => {
       navigate("/home");
     });
   };
-
+  
 //delte replies
 const handleDeleteReply = async (replyId) => {
   try {
@@ -89,12 +86,12 @@ const handleDeleteReply = async (replyId) => {
     alert("Failed to delete reply");
   }
 };
-  
+ 
   const userFullName = Parse.User.current() ? Parse.User.current().get("firstName") + " " + Parse.User.current().get("lastName") : "";
 
   return (
     <Container maxWidth="xl" sx={{ my: 4 }}>
-      <Typography variant="h1" align="center" gutterBottom>
+      <Typography variant="h1" align="center"  >
         {userFullName}
       </Typography>
 
@@ -123,7 +120,7 @@ const handleDeleteReply = async (replyId) => {
         </Box>
       )}
 
-      <Typography variant="h4" gutterBottom align="center">
+      <Typography variant="h4"   align="center">
         Your Reviews
       </Typography>
 

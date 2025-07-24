@@ -1,26 +1,17 @@
 import Parse from "parse";
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useNavigate } from "react-router-dom";
-import { authenticateUser } from "../../Services/AuthService";
+import { isUserAuthenticated } from "../../Services/AuthService";
 
-import NavigationView from "./NavigationView";
-
-const pages = ['Home', 'Reviews', 'Profile'];
-const settings = ["Login", "Register"];
+import NavigationBar from "./NavigationBar";
 
 const Navigation = () => {
-  
   const navigate = useNavigate();
 
   const [anchorElNav, setAnchorElNav] = useState(null);
-  const [anchorElUser, setAnchorElUser] = useState(null);
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
-  useEffect(() => {
-    const isAuthenticated = authenticateUser();
-    setIsAuthenticated(isAuthenticated);
-  }, []);
-
+  const pages = ['Home', 'Reviews', 'Inbox'];
+  
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
   };
@@ -29,50 +20,29 @@ const Navigation = () => {
     setAnchorElNav(null);
   };
 
-  const handleOpenUserMenu = (event) => {
-    setAnchorElUser(event.currentTarget);
-  };
-
-  const handleCloseUserMenu = () => {
-    setAnchorElUser(null);
-  };
-
   const handlePageNav = (page) => {
     handleCloseNavMenu();
     navigate(page.toLowerCase());
   };
 
-  const handleUserActions = (action) => {
-    handleCloseUserMenu();
-    
-    if (action === "Login") {
-      navigate("/auth/login");
-    }
-    else if (action === "Register") {
-      navigate("/auth/register");
-    }
+  const handleUserProfile = () => {
+    navigate("/profile");
   }
 
-  const getUserInitial = () => {
+  const getUserInitials = () => {
     const user = Parse.User.current();
-
-    return user ? user.get("firstName").charAt(0) + user.get("lastName").charAt(0) : "?";
+    return isUserAuthenticated() ? user.get("firstName").charAt(0) + user.get("lastName").charAt(0) : "?";
   }
 
   return (
-    <NavigationView
+    <NavigationBar
       pages={pages}
-      settings={settings}
       anchorElNav={anchorElNav}
-      anchorElUser={anchorElUser}
       handleOpenNavMenu={handleOpenNavMenu}
       handleCloseNavMenu={handleCloseNavMenu}
-      handleOpenUserMenu={handleOpenUserMenu}
-      handleCloseUserMenu={handleCloseUserMenu}
       handlePageNav={handlePageNav}
-      userInitial={getUserInitial()}
-      isAuthenticated={isAuthenticated}
-      handleUserActions={handleUserActions}
+      handleUserProfile={handleUserProfile}
+      userInitials={getUserInitials()}
     />
   )
 }

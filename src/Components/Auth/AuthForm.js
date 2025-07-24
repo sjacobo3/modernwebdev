@@ -1,5 +1,3 @@
-import React from "react";
-
 import { Box, Button, Paper, TextField, Typography } from "@mui/material";
 
 const AuthForm = ({ user, isLogin, onChange, onSubmit }) => {
@@ -20,6 +18,7 @@ const AuthForm = ({ user, isLogin, onChange, onSubmit }) => {
               required
               fullWidth
               margin="normal"
+              autoComplete="off"
             />
 
             <TextField
@@ -30,6 +29,7 @@ const AuthForm = ({ user, isLogin, onChange, onSubmit }) => {
               required
               fullWidth
               margin="normal"
+              autoComplete="off"
             />
           </>
         )}
@@ -43,6 +43,7 @@ const AuthForm = ({ user, isLogin, onChange, onSubmit }) => {
           required
           fullWidth
           margin="normal"
+          autoComplete="off"
         />
 
         <TextField
@@ -54,6 +55,7 @@ const AuthForm = ({ user, isLogin, onChange, onSubmit }) => {
           required
           fullWidth
           margin="normal"
+          autoComplete="off"
         />
 
         <Box mt={2}>

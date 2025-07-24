@@ -11,10 +11,11 @@ const ReviewMain = () => {
   const [loading, setLoading] = useState(true);
   const [showUser, setShowUser] = useState(true);
 
+  // get all reviews
   useEffect(() => {
     getAllReviews()
     .then((results) => {
-      console.log("Fetched reviews:", results);
+      // console.log("Fetched reviews:", results);
       setReviews(results);
       setShowUser(true);
       setLoading(false);
@@ -42,7 +43,7 @@ const ReviewMain = () => {
 
   return (
     <Container maxWidth="xl" sx={{ mb:4 }}>
-      <Typography variant="h1" align="center" gutterBottom>
+      <Typography variant="h1" align="center"  >
         Reviews
       </Typography>
 

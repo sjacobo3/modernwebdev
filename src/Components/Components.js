@@ -13,6 +13,7 @@ import AuthLogin from "./Auth/AuthLogin";
 import ReviewMain from "./Reviews/ReviewMain";
 import UserProfile from "./UserProfile/UserProfile";
 import AuthForgot from "./Auth/AuthForgot"; //forgot password 
+import Inbox from "./Inbox/Inbox";
 
 const Components = () => {
   return (
@@ -25,11 +26,15 @@ const Components = () => {
         <Route path="/auth/forgot" element={<AuthForgot />} />
         <Route
           path="/reviews"
-          element={<ProtectedRoute element={ReviewMain} />}
+          element={<ReviewMain />}
         />
         <Route
           path="/profile"
           element={<ProtectedRoute element={UserProfile} />}
+        />
+        <Route
+          path="/inbox"
+          element={<ProtectedRoute element={Inbox} />}
         />
         <Route path="*" element={<Home />}replace />
         

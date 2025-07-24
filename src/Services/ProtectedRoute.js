@@ -1,12 +1,12 @@
 import { useEffect } from "react";
-import { authenticateUser } from "./AuthService";
 import { useNavigate } from "react-router-dom";
+import { isUserAuthenticated } from "./AuthService";
 
 const ProtectedRoute = ({ element: Component, ...rest }) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!authenticateUser()) {
+    if (!isUserAuthenticated()) {
       navigate("/auth/login");
     }
   }, [navigate]);

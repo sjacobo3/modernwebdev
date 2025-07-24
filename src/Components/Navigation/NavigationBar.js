@@ -1,22 +1,19 @@
 import React from "react";
 
 import { AppBar, Box, Toolbar, IconButton, Typography, Menu,
-    Button, MenuItem, Container, Tooltip, Avatar } from '@mui/material';
+    Button, MenuItem, Container, Tooltip } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 
-const NavigationView = ({
+import NavigationAvatar from "./NavigationAvatar";
+
+const NavigationBar = ({
     pages,
-    settings,
     anchorElNav, 
-    anchorElUser,
     handleOpenNavMenu,
     handleCloseNavMenu,
     handlePageNav,
-    handleOpenUserMenu,
-    handleCloseUserMenu,
-    userInitial,
-    isAuthenticated,
-    handleUserActions
+    userInitials,
+    handleUserProfile,
 }) => (
     <AppBar position="static" elevation={0}>
         <Container maxWidth="xl">
@@ -27,7 +24,7 @@ const NavigationView = ({
                     </Typography>
 
                 {/* Desktop Navigation */}
-                <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' }, justifyContent: 'flex-end', mr: 1 }}>
+                <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' }, justifyContent: 'flex-end', mr: 1, gap: 1 }}>
                     {pages.map((page) => (
                         <Button key={page} onClick={() => handlePageNav(page)} sx={{ my: 2, color: 'black' }}>
                         {page}
@@ -57,36 +54,14 @@ const NavigationView = ({
                     </Menu>
                 </Box>
 
-                {/* Profile Menu */}
-                <Box sx={{ flexGrow: 0 }}>
-                    <Tooltip title="Account settings">
-                        <IconButton onClick={handleOpenUserMenu}>
-                            <Avatar sx={{ width: 40, height: 40, fontSize: 18 }}>
-                                {userInitial}
-                            </Avatar>
-                        </IconButton>
-                    </Tooltip>
+                <NavigationAvatar
+                    userInitials={userInitials}
+                    handleUserProfile={handleUserProfile}
+                />
 
-                    <Menu
-                        anchorEl={anchorElUser}
-                        id="account-menu"
-                        open={Boolean(anchorElUser)}
-                        onClose={handleCloseUserMenu}
-                        transformOrigin={{ horizontal: "right", vertical: "top" }}
-                        anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
-                        sx={{ mt: 1 }}
-                    >
-                        {!isAuthenticated && (
-                        settings.map((setting) => (
-                            <MenuItem key={setting} onClick={() => handleUserActions(setting)}>
-                                <Typography sx={{ textAlign: 'center'}}>{setting}</Typography>
-                            </MenuItem>
-                        )))}
-                    </Menu>
-                </Box>
             </Toolbar>
         </Container>
     </AppBar>
 );
 
-export default NavigationView;
+export default NavigationBar;

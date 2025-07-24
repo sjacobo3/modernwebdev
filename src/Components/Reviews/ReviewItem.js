@@ -14,11 +14,14 @@ import {
   TextField,
 } from "@mui/material";
 
+import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt';
+
 //import React from "react";        
 
 function ReviewItem({ review, onDelete, onEdit, showUser, onReply, replies = [], onDeleteReply, canDeleteReplies = false  }) { //make replies array to collect responses
   const [isReplying, setIsReplying] = useState(false);
   const [replyText, setReplyText] = useState("");
+  const [likes, setLikes] = useState(review.get("likes") || []);
 
   const courseCode = review.get("courseCode");
   const rating = review.get("rating");
@@ -28,6 +31,9 @@ function ReviewItem({ review, onDelete, onEdit, showUser, onReply, replies = [],
   const takeAgain = review.get("takeAgain");
   const attendance = review.get("attendance");
 
+  //like stuff 
+  const currentUser = Parse.User.current();
+  const hasLiked = currentUser && likes.includes(currentUser.id);
 
   const handleReplySubmit = () => {
     if (onReply && replyText.trim()) {
@@ -35,6 +41,34 @@ function ReviewItem({ review, onDelete, onEdit, showUser, onReply, replies = [],
     }
     setReplyText("");
     setIsReplying(false);
+  };
+
+
+
+    const handleToggleLike = async () => {
+    try {
+      const Review = Parse.Object.extend("Review");
+      const query = new Parse.Query(Review);
+      const updatedReview = await query.get(review.id);
+
+      const existingLikes = updatedReview.get("likes") || [];
+      const userId = currentUser.id;
+
+      if (existingLikes.includes(userId)) {
+        updatedReview.set(
+          "likes",
+          existingLikes.filter((id) => id !== userId)
+        );
+      } else {
+        updatedReview.set("likes", [...existingLikes, userId]);
+      }
+
+      const saved = await updatedReview.save();
+      setLikes(saved.get("likes") || []);
+    } catch (err) {
+      console.error("Error toggling like:", err);
+      alert("Failed to like/unlike");
+    }
   };
 
   const user = review.get("user");
@@ -143,6 +177,13 @@ function ReviewItem({ review, onDelete, onEdit, showUser, onReply, replies = [],
             {isReplying ? "Cancel" : "Reply"}
           </Button>
         </Stack>
+         <Button
+          onClick={handleToggleLike}
+          color={hasLiked ? "primary" : "inherit"}
+          startIcon={<ThumbUpAltIcon />}
+        >
+          {likes.length}
+        </Button>
       </CardActions>
       {isReplying && (
         <Box p={2}>

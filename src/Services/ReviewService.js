@@ -111,3 +111,26 @@ export const fetchUserReviews = async () => {
   const results = await query.find();
   return results; // Return Parse objects, not JSON
 };
+
+//like button 
+export const toggleLikeReview = async (reviewId) => {
+  const Review = Parse.Object.extend("Review");
+  const query = new Parse.Query(Review);
+  const currentUser = Parse.User.current();
+  if (!currentUser) throw new Error("User must be logged in");
+
+  const review = await query.get(reviewId);
+  const likes = review.get("likes") || [];
+  const userId = currentUser.id;
+
+  if (likes.includes(userId)) {
+    // Unlike
+    review.set("likes", likes.filter((id) => id !== userId));
+  } else {
+    // Like
+    review.set("likes", [...likes, userId]);
+  }
+
+  await review.save();
+  return review;
+};

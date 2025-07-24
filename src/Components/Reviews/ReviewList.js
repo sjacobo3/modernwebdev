@@ -1,13 +1,25 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import ReviewItem from "./ReviewItem";
 
 import { CircularProgress, Container, Grid, Typography } from "@mui/material";
-import { fetchRepliesForReview, createReply} from "../../Services/ReplyService"; 
+import {
+  fetchRepliesForReview,
+  createReply,
+} from "../../Services/ReplyService";
 
-const ReviewList = ({ reviews = [], loading, onDelete, onEdit, showUser, canDeleteReplies = false, onDeleteReply, seeReplyButton  }) => {
+const ReviewList = ({
+  reviews = [],
+  loading,
+  onDelete,
+  onEdit,
+  showUser,
+  canDeleteReplies = false,
+  onDeleteReply,
+  seeReplyButton,
+}) => {
   const [replies, setReplies] = useState({});
 
-   // Load replies for each review
+  // Load replies for each review
   useEffect(() => {
     const loadAllReplies = async () => {
       const repliesData = {};
@@ -15,7 +27,7 @@ const ReviewList = ({ reviews = [], loading, onDelete, onEdit, showUser, canDele
         const reviewId = review.id;
         const fetched = await fetchRepliesForReview(reviewId);
         repliesData[reviewId] = Array.isArray(fetched) ? fetched : [];
-    }
+      }
       setReplies(repliesData);
     };
 
@@ -32,20 +44,19 @@ const ReviewList = ({ reviews = [], loading, onDelete, onEdit, showUser, canDele
       setReplies((prev) => ({
         ...prev,
         [reviewId]: updatedReplies,
-}));
-  } catch (err) {
-    console.error("Error submitting reply:", err);
-    alert("Failed to add reply");
-  }
-};
+      }));
+    } catch (err) {
+      console.error("Error submitting reply:", err);
+      alert("Failed to add reply");
+    }
+  };
 
-
-//  const handleReply = (reviewId, replyText) => { 
-   // setReplies((Prev) => ({
+  //  const handleReply = (reviewId, replyText) => {
+  // setReplies((Prev) => ({
   //    ...Prev,
-//      [reviewId]: [...(Prev[reviewId] || []), replyText],
-//    }));
-    
+  //      [reviewId]: [...(Prev[reviewId] || []), replyText],
+  //    }));
+
   if (loading) {
     return (
       <Grid container justifyContent="center" mt={4}>
@@ -67,12 +78,12 @@ const ReviewList = ({ reviews = [], loading, onDelete, onEdit, showUser, canDele
       <Grid container spacing={3} mt={2}>
         {reviews.map((review) => (
           <Grid size={{ xs: 12, md: 6, lg: 4 }} key={review.id}>
-            <ReviewItem 
-              review={review} 
-              onDelete={onDelete} 
-              onEdit={onEdit} 
-              showUser={showUser} 
-              replies={(replies[review.id] || [])} 
+            <ReviewItem
+              review={review}
+              onDelete={onDelete}
+              onEdit={onEdit}
+              showUser={showUser}
+              replies={replies[review.id] || []}
               onReply={handleReply}
               onDeleteReply={onDeleteReply}
               canDeleteReplies={true}

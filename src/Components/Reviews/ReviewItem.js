@@ -14,11 +14,25 @@ import {
   TextField,
 } from "@mui/material";
 
-import { isUserAuthenticated, getCurrentUser } from "../../Services/AuthService";
-import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt';   
+import {
+  isUserAuthenticated,
+  getCurrentUser,
+} from "../../Services/AuthService";
+import ThumbUpAltIcon from "@mui/icons-material/ThumbUpAlt";
 import { useNavigate } from "react-router-dom";
 
-function ReviewItem({ review, onDelete, onEdit, showUser, onReply, replies = [], onDeleteReply, canDeleteReplies = false, seeReplyButton  }) { //make replies array to collect responses
+function ReviewItem({
+  review,
+  onDelete,
+  onEdit,
+  showUser,
+  onReply,
+  replies = [],
+  onDeleteReply,
+  canDeleteReplies = false,
+  seeReplyButton,
+}) {
+  //make replies array to collect responses
   const navigate = useNavigate();
 
   const [isReplying, setIsReplying] = useState(false);
@@ -29,11 +43,13 @@ function ReviewItem({ review, onDelete, onEdit, showUser, onReply, replies = [],
   const rating = review.get("rating");
   const difficulty = review.get("difficulty");
   const comment = review.get("comment");
-  const grade = review.get("gradeReceived");
-  const takeAgain = review.get("takeAgain");
-  const attendance = review.get("attendance");
+  const professorName = review.get("professorName");
+  const majorRequirement = review.get("majorRequirement");
+  const semesterTaken = review.get("semesterTaken");
 
-  //like stuff 
+  const userAuthenticated = isUserAuthenticated();
+
+  //like stuff
   const currentUser = getCurrentUser();
   const hasLiked = currentUser && likes.includes(currentUser.id);
 
@@ -50,7 +66,7 @@ function ReviewItem({ review, onDelete, onEdit, showUser, onReply, replies = [],
     setIsReplying(false);
   };
 
-    const handleToggleLike = async () => {
+  const handleToggleLike = async () => {
     try {
       if (!currentUser) {
         navigate("/auth/login"); //redirect to login page if user is not logged in
@@ -85,25 +101,26 @@ function ReviewItem({ review, onDelete, onEdit, showUser, onReply, replies = [],
   const firstName = user?.get("firstName");
   const lastName = user?.get("lastName");
 
-
   return (
     <Card variant="outlined" sx={{ height: "100%", p: 1 }}>
       <CardContent>
-        {showUser && (  
-          <Box display="flex"  gap={1} alignItems="center">
+        {showUser && (
+          <Box display="flex" gap={1} alignItems="center">
             <IconButton>
               <Avatar sx={{ width: 30, height: 30, fontSize: 18 }} />
             </IconButton>
-            <Typography variant="h6"  >
-              {firstName} {lastName}
+            <Typography variant="h6">
+              {userAuthenticated ? `${firstName} ${lastName}` : "Anonymous"}
             </Typography>
           </Box>
         )}
 
-        <Typography variant="h6"  >
-          {courseCode}
+        <Typography variant="h6">{courseCode}</Typography>
+
+        <Typography variant="body2">
+          <b>Professor:</b> {professorName}
         </Typography>
-    
+
         <Typography variant="body2">
           <b>Rating:</b> {rating}
         </Typography>
@@ -113,15 +130,11 @@ function ReviewItem({ review, onDelete, onEdit, showUser, onReply, replies = [],
         </Typography>
 
         <Typography variant="body2">
-          <b>Grade Received:</b> {grade}
+          <b>Major Requirement:</b> {majorRequirement ? "Yes" : "No"}
         </Typography>
 
         <Typography variant="body2">
-          <b>Attendance:</b> {attendance ? "Yes" : "No"}
-        </Typography>
-
-        <Typography variant="body2">
-          <b>Would Take Again:</b> {takeAgain ? "Yes" : "No"}
+          <b>Semester Taken:</b> {semesterTaken}
         </Typography>
 
         <Typography variant="body2">
@@ -134,11 +147,12 @@ function ReviewItem({ review, onDelete, onEdit, showUser, onReply, replies = [],
             <Typography variant="subtitle2" gutterBottom>
               Replies:
             </Typography>
-            {replies[review.id]?.map((r,idx) => {
+            {replies.map((r, idx) => {
               const replyText = r.get("userReply");
               const replyUser = r.get("user");
               const currentUser = Parse.User.current();
-              const isOwner = currentUser && replyUser && replyUser.id === currentUser.id;
+              const isOwner =
+                currentUser && replyUser && replyUser.id === currentUser.id;
 
               return (
                 <Box
@@ -148,56 +162,57 @@ function ReviewItem({ review, onDelete, onEdit, showUser, onReply, replies = [],
                   alignItems="center"
                   mb={1}
                 >
-              <Typography key={idx} variant="body2" sx={{ mb: 1 }}>
-                • {replyText}
-              </Typography>
-              {canDeleteReplies && isOwner && (
-                <Button
-                  color="error"
-                  size="small"
-                  onClick={() => onDeleteReply && onDeleteReply(r.id)}
-                  >
-                  Delete
-                </Button>
-              )}
-            </Box>
-          );
-        })}
-      </Box> 
-    )}
-          {/*reply button and text field */}
+                  <Typography key={idx} variant="body2" sx={{ mb: 1 }}>
+                    • {replyText}
+                  </Typography>
+                  {canDeleteReplies && isOwner && (
+                    <Button
+                      color="error"
+                      size="small"
+                      onClick={() => onDeleteReply && onDeleteReply(r.id)}
+                    >
+                      Delete
+                    </Button>
+                  )}
+                </Box>
+              );
+            })}
+          </Box>
+        )}
+        {/*reply button and text field */}
       </CardContent>
-        <CardActions sx={{ justifyContent: "flex-end" }}>
-          <Stack direction="row" spacing={1}>
-            {onEdit && (
-              <Button onClick={() => onEdit(review)} variant="outlined">
-                Edit
-              </Button>
-            )}
-            {onDelete && (
-              <Button
-                onClick={() => onDelete(review.id)}
-                color="error"
-                variant="outlined"
-              >
-                Delete
-              </Button>
-            )}
-            {seeReplyButton && (
-            <Button onClick={() => {
-              if (!currentUser) {
-                navigate("/auth/login"); //redirect to login page if user is not logged in
-                return;
-              }
-              setIsReplying(!isReplying);
-            }} 
-            variant="outlined"
+      <CardActions sx={{ justifyContent: "flex-end" }}>
+        <Stack direction="row" spacing={1}>
+          {onEdit && (
+            <Button onClick={() => onEdit(review)} variant="outlined">
+              Edit
+            </Button>
+          )}
+          {onDelete && (
+            <Button
+              onClick={() => onDelete(review.id)}
+              color="error"
+              variant="outlined"
+            >
+              Delete
+            </Button>
+          )}
+          {seeReplyButton && (
+            <Button
+              onClick={() => {
+                if (!currentUser) {
+                  navigate("/auth/login"); //redirect to login page if user is not logged in
+                  return;
+                }
+                setIsReplying(!isReplying);
+              }}
+              variant="outlined"
             >
               {isReplying ? "Cancel" : "Reply"}
             </Button>
           )}
         </Stack>
-         <Button
+        <Button
           onClick={handleToggleLike}
           color={hasLiked ? "primary" : "inherit"}
           startIcon={<ThumbUpAltIcon />}
@@ -207,7 +222,7 @@ function ReviewItem({ review, onDelete, onEdit, showUser, onReply, replies = [],
       </CardActions>
       {isReplying && (
         <Box p={2}>
-          <TextField //reply box 
+          <TextField //reply box
             value={replyText}
             onChange={(e) => setReplyText(e.target.value)}
             placeholder="Write a reply..."
@@ -224,9 +239,8 @@ function ReviewItem({ review, onDelete, onEdit, showUser, onReply, replies = [],
           </Button>
         </Box>
 
-         //</Card> </Stack>
+        //</Card> </Stack>
         //</CardActions>
-
       )}
     </Card>
   );

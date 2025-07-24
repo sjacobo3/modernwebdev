@@ -140,7 +140,7 @@ const ReviewMain = () => {
         <Button variant="outlined" onClick={() => { setSearchBar(""); setMajorRequirement(""); setSemester(""); }}>Clear</Button>
       </Box>
 
-      <ReviewList reviews={filteredReviews} loading={loading} showUser={showUser} />
+      <ReviewList reviews={filteredReviews} loading={loading} showUser={showUser} seeReplyButton={true} />
     </Container>
   );
 };

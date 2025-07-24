@@ -128,6 +128,7 @@ const handleDeleteReply = async (replyId) => {
         showUser={false}
         onDeleteReply={handleDeleteReply} 
         canDeleteReplies={true}
+        replyButton={false}
       />
 
       <Box display="flex" justifyContent="center" mt={4}>

@@ -14,10 +14,13 @@ import {
   TextField,
 } from "@mui/material";
 
-import { isUserAuthenticated } from "../../Services/AuthService";
+import { isUserAuthenticated, getCurrentUser } from "../../Services/AuthService";
 import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt';   
+import { useNavigate } from "react-router-dom";
 
-function ReviewItem({ review, onDelete, onEdit, showUser, onReply, replies = [], onDeleteReply, canDeleteReplies = false  }) { //make replies array to collect responses
+function ReviewItem({ review, onDelete, onEdit, showUser, onReply, replies = [], onDeleteReply, canDeleteReplies = false, seeReplyButton  }) { //make replies array to collect responses
+  const navigate = useNavigate();
+
   const [isReplying, setIsReplying] = useState(false);
   const [replyText, setReplyText] = useState("");
   const [likes, setLikes] = useState(review.get("likes") || []);
@@ -33,10 +36,15 @@ function ReviewItem({ review, onDelete, onEdit, showUser, onReply, replies = [],
   const userAuthenticated = isUserAuthenticated();
 
   //like stuff 
-  const currentUser = Parse.User.current();
+  const currentUser = getCurrentUser();
   const hasLiked = currentUser && likes.includes(currentUser.id);
 
   const handleReplySubmit = () => {
+    if (!currentUser) {
+      navigate("/auth/login"); //redirect to login page if user is not logged in
+      return;
+    }
+
     if (onReply && replyText.trim()) {
       onReply(review.id, replyText);
     }
@@ -48,6 +56,11 @@ function ReviewItem({ review, onDelete, onEdit, showUser, onReply, replies = [],
 
     const handleToggleLike = async () => {
     try {
+      if (!currentUser) {
+        navigate("/auth/login"); //redirect to login page if user is not logged in
+        return;
+      }
+
       const Review = Parse.Object.extend("Review");
       const query = new Parse.Query(Review);
       const updatedReview = await query.get(review.id);
@@ -174,9 +187,19 @@ function ReviewItem({ review, onDelete, onEdit, showUser, onReply, replies = [],
                 Delete
               </Button>
             )}
-            <Button onClick={() => setIsReplying(!isReplying)} variant="outlined">
-            {isReplying ? "Cancel" : "Reply"}
-          </Button>
+            {seeReplyButton && (
+            <Button onClick={() => {
+              if (!currentUser) {
+                navigate("/auth/login"); //redirect to login page if user is not logged in
+                return;
+              }
+              setIsReplying(!isReplying);
+            }} 
+            variant="outlined"
+            >
+              {isReplying ? "Cancel" : "Reply"}
+            </Button>
+          )}
         </Stack>
          <Button
           onClick={handleToggleLike}

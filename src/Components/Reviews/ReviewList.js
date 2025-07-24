@@ -4,7 +4,7 @@ import ReviewItem from "./ReviewItem";
 import { CircularProgress, Container, Grid, Typography } from "@mui/material";
 import { fetchRepliesForReview, createReply} from "../../Services/ReplyService"; 
 
-const ReviewList = ({ reviews = [], loading, onDelete, onEdit, showUser, canDeleteReplies = false, onDeleteReply }) => {
+const ReviewList = ({ reviews = [], loading, onDelete, onEdit, showUser, canDeleteReplies = false, onDeleteReply, seeReplyButton  }) => {
   const [replies, setReplies] = useState({});
 
    // Load replies for each review
@@ -76,6 +76,7 @@ const ReviewList = ({ reviews = [], loading, onDelete, onEdit, showUser, canDele
               onReply={handleReply}
               onDeleteReply={onDeleteReply}
               canDeleteReplies={true}
+              seeReplyButton={seeReplyButton}
             />
           </Grid>
         ))}

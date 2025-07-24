@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { loginUser, authenticateUser } from "../../Services/AuthService";
+import { useEffect, useState } from "react";
+import { isUserAuthenticated, loginUser } from "../../Services/AuthService";
 import AuthForm from "./AuthForm";
 import { useNavigate, Link } from "react-router-dom";
 
@@ -18,7 +18,7 @@ const AuthLogin = () => {
   // need to check if user is already logged in
   // redirect to home page in project
   useEffect(() => {
-    if (authenticateUser()) {
+    if (isUserAuthenticated()) {
       alert("Already logged in!");
       navigate("/reviews");
     }
@@ -41,7 +41,7 @@ const AuthLogin = () => {
 
   const onChangeHandler = (e) => {
     e.preventDefault();
-    console.log(e.target);
+
     const { name, value } = e.target;
     setCurrUser((prev) => ({
       ...prev,

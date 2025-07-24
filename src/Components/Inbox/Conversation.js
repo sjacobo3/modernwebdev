@@ -10,11 +10,11 @@ const Conversation = ({ conversation, onClick }) => {
     // get receiver initials
     const participants = conversation.get("participants");
     const currUser = getCurrentUser();
-    const receiver = participants.find(p => p.id !== currUser?.id);
+    const receiver = participants.find(p => p?.id !== currUser?.id);
     let receiverInitials = "?";
     if (receiver) {
-        const firstName = receiver.get("firstName");
-        const lastName = receiver.get("lastName");
+        const firstName = receiver?.get("firstName") || "";
+        const lastName = receiver?.get("lastName") || "";
         receiverInitials = (firstName.charAt(0) + lastName.charAt(0)).toUpperCase();
     }
 

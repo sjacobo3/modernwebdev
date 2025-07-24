@@ -37,10 +37,9 @@ const ConversationForm = ({ onClose, conversations = [], onRedirectToConversatio
     }, [receiverId, conversations, onClose, onRedirectToConversation]);
 
     // create conversation and message, close form, and fetch all conversations to show new one
-    const handleSendMessage = () => {
-        createConversation(receiverId, title).then((conversation) => {
-            createMessage(conversation.id, messageContent, receiverId);
-        });
+    const handleSendMessage = async  () => {
+        const conversation = await createConversation(receiverId, title);
+        await createMessage(conversation.id, messageContent, receiverId);
         onClose();
         fetchConversations();
     };

@@ -81,7 +81,7 @@ const UserProfile = () => {
 const handleDeleteReply = async (replyId) => {
   try {
     await removeReply(replyId);
-    await loadReviews(); // or trigger state update for replies
+    loadReviews(); // or trigger state update for replies
   } catch (err) {
     alert("Failed to delete reply");
   }
@@ -125,7 +125,7 @@ const handleDeleteReply = async (replyId) => {
         loading={loading}
         onDelete={handleDelete}
         onEdit={handleEdit}
-        showUser={false}
+        showUser={true}
         onDeleteReply={handleDeleteReply} 
         canDeleteReplies={true}
         replyButton={false}

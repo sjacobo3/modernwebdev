@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { getAllReviews } from "../../Services/ReviewService";
 import ReviewList from "./ReviewList";
+import {removeReply} from "../../Services/ReplyService";
 import { Box, Button, Container, TextField, Typography, Select, MenuItem, FormControl, InputLabel } from "@mui/material";
 
 const ReviewMain = () => {
@@ -33,6 +34,15 @@ const ReviewMain = () => {
     fetchReviews();
   }, []);
 
+
+  const handleDeleteReply = async (replyId) => {
+  try {
+    await removeReply(replyId);
+    fetchReviews(); // Refresh the list
+  } catch (err) {
+    alert("Failed to delete reply");
+  }
+};
 
   // filter reviews by selected search type, then by search bar
   const filteredReviews = reviews.filter((review) => {
@@ -140,7 +150,11 @@ const ReviewMain = () => {
         <Button variant="outlined" onClick={() => { setSearchBar(""); setMajorRequirement(""); setSemester(""); }}>Clear</Button>
       </Box>
 
+<<<<<<< HEAD
       <ReviewList reviews={filteredReviews} loading={loading} showUser={showUser} seeReplyButton={true} />
+=======
+      <ReviewList reviews={filteredReviews} loading={loading} showUser={showUser} onDeleteReply={handleDeleteReply} canDeleteReplies={true}   />
+>>>>>>> aa6a073033d44c36984035594da55c0cdd87e6b7
     </Container>
   );
 };

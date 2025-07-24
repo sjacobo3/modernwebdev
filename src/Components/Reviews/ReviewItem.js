@@ -14,12 +14,19 @@ import {
   TextField,
 } from "@mui/material";
 
+<<<<<<< HEAD
 import { isUserAuthenticated, getCurrentUser } from "../../Services/AuthService";
 import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt';   
 import { useNavigate } from "react-router-dom";
 
 function ReviewItem({ review, onDelete, onEdit, showUser, onReply, replies = [], onDeleteReply, canDeleteReplies = false, seeReplyButton  }) { //make replies array to collect responses
   const navigate = useNavigate();
+=======
+import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt'; // like icon 
+import { Reviews } from "@mui/icons-material";
+
+//import React from "react";        
+>>>>>>> aa6a073033d44c36984035594da55c0cdd87e6b7
 
   const [isReplying, setIsReplying] = useState(false);
   const [replyText, setReplyText] = useState("");
@@ -29,11 +36,9 @@ function ReviewItem({ review, onDelete, onEdit, showUser, onReply, replies = [],
   const rating = review.get("rating");
   const difficulty = review.get("difficulty");
   const comment = review.get("comment");
-  const professorName = review.get("professorName");
-  const majorRequirement = review.get("majorRequirement");
-  const semesterTaken = review.get("semesterTaken");
-  
-  const userAuthenticated = isUserAuthenticated();
+  const grade = review.get("gradeReceived");
+  const takeAgain = review.get("takeAgain");
+  const attendance = review.get("attendance");
 
   //like stuff 
   const currentUser = getCurrentUser();
@@ -51,8 +56,6 @@ function ReviewItem({ review, onDelete, onEdit, showUser, onReply, replies = [],
     setReplyText("");
     setIsReplying(false);
   };
-
-
 
     const handleToggleLike = async () => {
     try {
@@ -99,17 +102,13 @@ function ReviewItem({ review, onDelete, onEdit, showUser, onReply, replies = [],
               <Avatar sx={{ width: 30, height: 30, fontSize: 18 }} />
             </IconButton>
             <Typography variant="h6"  >
-              {userAuthenticated ? `${firstName} ${lastName}` : "Anonymous"}
+              {firstName} {lastName}
             </Typography>
           </Box>
         )}
 
         <Typography variant="h6"  >
           {courseCode}
-        </Typography>
-
-        <Typography variant="body2">
-          <b>Professor:</b> {professorName}
         </Typography>
     
         <Typography variant="body2">
@@ -121,11 +120,15 @@ function ReviewItem({ review, onDelete, onEdit, showUser, onReply, replies = [],
         </Typography>
 
         <Typography variant="body2">
-          <b>Major Requirement:</b> {majorRequirement ? "Yes" : "No"}
+          <b>Grade Received:</b> {grade}
         </Typography>
 
         <Typography variant="body2">
-          <b>Semester Taken:</b> {semesterTaken}
+          <b>Attendance:</b> {attendance ? "Yes" : "No"}
+        </Typography>
+
+        <Typography variant="body2">
+          <b>Would Take Again:</b> {takeAgain ? "Yes" : "No"}
         </Typography>
 
         <Typography variant="body2">
@@ -138,7 +141,7 @@ function ReviewItem({ review, onDelete, onEdit, showUser, onReply, replies = [],
             <Typography variant="subtitle2" gutterBottom>
               Replies:
             </Typography>
-            {replies.map((r, idx) => {
+            {replies[Reviews.id]?.map((r,idx) => {
               const replyText = r.get("userReply");
               const replyUser = r.get("user");
               const currentUser = Parse.User.current();

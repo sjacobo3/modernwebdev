@@ -15,11 +15,12 @@ const Inbox = () => {
 
     // get all conversations for the current user
     useEffect(() => {
-        (async () => {
+        const loadConversations = async () => {
             const convs = await getConversations();
             setConversations(convs);
             setFetchConversations(false);
-        })();
+        };
+        loadConversations();
     }, [fetchConversations]);
 
     // open dialog for a selected conversation

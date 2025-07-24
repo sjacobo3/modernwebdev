@@ -47,8 +47,6 @@ export const getMessages = async (conversationId) => {
     const Message = Parse.Object.extend("Message");
     const query = new Parse.Query(Message);
 
-    console.log("query: ", query);
-
     const conversation = new Parse.Object("Conversation");
     conversation.set("objectId", conversationId);
 
@@ -56,7 +54,6 @@ export const getMessages = async (conversationId) => {
     query.include(["sender", "receiver"]);
     query.ascending("createdAt");
 
-    console.log("query: ", query);
 
     return query.find().then(
         (messages) => {
@@ -80,13 +77,11 @@ export const getMessages = async (conversationId) => {
 export const createMessage = async (conversationId, content, receiverId) => {
     const currUser = getCurrentUser();
 
-    const Conversation = Parse.Object.extend("Conversation");
-    const conversationQuery = new Parse.Query(Conversation);
+    const conversation = Parse.Object.extend("Conversation");
+    conversation.set("objectId", conversationId);
 
-    const conversation = await conversationQuery.get(conversationId);
-
-    const receiverQuery = new Parse.Query(Parse.User);
-    const receiver = await receiverQuery.get(receiverId);
+    const receiver = new Parse.User();
+    receiver.set("objectId", receiverId);
 
     const Message = Parse.Object.extend("Message");
     const message = new Message();
@@ -96,14 +91,16 @@ export const createMessage = async (conversationId, content, receiverId) => {
     message.set("sender", currUser);
     message.set("receiver", receiver);
 
-    const savedMessage = await message.save();
+    try {
+        const savedMessage = await message.save();
 
-    const messageQuery = new Parse.Query("Message");
-    messageQuery.include(["sender", "receiver"]);
-    const fullMessage = await messageQuery.get(savedMessage.id);
+        const messageQuery = new Parse.Query(Message);
+        messageQuery.include(["sender", "receiver"]);
+        const fullMessage = await messageQuery.get(savedMessage.id);
 
-    conversation.relation("messages").add(fullMessage);
-    await conversation.save();
-
-    return fullMessage;
+        return fullMessage;
+    } catch (error) {
+        console.error(error);
+        return null;
+    }
 };

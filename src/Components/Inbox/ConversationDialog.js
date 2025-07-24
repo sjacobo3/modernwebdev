@@ -25,7 +25,7 @@ const ConversationDialog = ({ open, onClose, conversation }) => {
     // Refresh messages after sending a new one
     const handleMessageSent = async () => {
         if (!messageContent.trim()) return;
-        const participants = conversation.get("participants");
+        const participants = conversation.get("participants") || [];
         const receiverId = participants.find(p => p.id !== getCurrentUser().id)?.id;
         if (!receiverId) return;
         await createMessage(conversation.id, messageContent, receiverId);
@@ -35,7 +35,7 @@ const ConversationDialog = ({ open, onClose, conversation }) => {
 
     return (
         <Dialog open={open} onClose={onClose} fullWidth maxWidth="md">
-            <DialogTitle>{conversation.get("title")}</DialogTitle>
+            <DialogTitle>{conversation?.get("title") || "New Conversation"}</DialogTitle>
 
             <DialogContent>
                 {/* render conversation messages */}
@@ -59,7 +59,7 @@ const ConversationDialog = ({ open, onClose, conversation }) => {
                         value={messageContent}
                         onChange={(e) => setMessageContent(e.target.value)}
                     />
-                    <Button variant="contained" onClick={handleMessageSent}>Send</Button>
+                    <Button variant="contained" onClick={handleMessageSent} disabled={!messageContent.trim()}>Send</Button>
                 </Box>
 
             </DialogContent>

@@ -9,7 +9,6 @@ const ReviewMain = () => {
   
   const [loading, setLoading] = useState(true);
   const [showUser, setShowUser] = useState(true);
-  const [searchType, setSearchType] = useState("all");
   const [majorRequirement, setMajorRequirement] = useState('');
   const [semester, setSemester] = useState('');
   const [searchType, setSearchType] = useState("courseCode"); //default
@@ -57,7 +56,7 @@ const ReviewMain = () => {
       return false;
     }
     
-    return true;
+    return matches;
   })
   .sort((a, b) => {
     if (searchType === "likes") {

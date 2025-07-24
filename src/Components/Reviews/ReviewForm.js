@@ -97,8 +97,19 @@ const ReviewForm = ({ initialValues, onSubmit, onCancel, isEditing }) => {
   };
 
   return (
-    <Dialog open={true} onClose={onCancel} maxWidth="md" fullWidth>
-      <DialogTitle>{isEditing ? "Edit Review" : "Add Review"}</DialogTitle>
+    <Dialog open={true} onClose={onCancel} maxWidth="sm" fullWidth>
+      <Box display="flex" justifyContent="space-between" alignItems="center">
+        <DialogTitle>{isEditing ? "Edit Review" : "Add Review"}</DialogTitle>
+        <Box display="flex" gap={2} justifyContent="center" mr={5}>
+            <Button type="submit" variant="contained" onClick={handleSubmit}>
+              Submit
+            </Button>
+            <Button type="button" variant="contained" onClick={onCancel}>
+              Cancel
+            </Button>
+          </Box>
+        </Box>
+
       <DialogContent>
         <FormControl sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
           <FormControl required>
@@ -207,14 +218,6 @@ const ReviewForm = ({ initialValues, onSubmit, onCancel, isEditing }) => {
           />
         </FormControl>
         
-        <Box display="flex" gap={2} mt={2} justifyContent="center">
-          <Button type="submit" variant="contained" onClick={handleSubmit}>
-            Submit
-          </Button>
-          <Button type="button" variant="contained" onClick={onCancel}>
-            Cancel
-          </Button>
-        </Box>
       </DialogContent>
     </Dialog>
   );

@@ -1,36 +1,44 @@
 import Parse from "parse";
+import { getCurrentUser } from "./AuthService";
 
 // apply fields to a review object
 const setReviewFields = (review, data) => {
+  review.set("user", data.user);
+  review.set("department", data.department);
+  review.set("professor", data.professor);
+  review.set("professorName", data.professorName);
   review.set("courseCode", data.courseCode);
+  review.set("course", data.course);
   review.set("rating", parseInt(data.rating));
   review.set("difficulty", parseInt(data.difficulty));
   review.set("comment", data.comment);
-  review.set("gradeReceived", data.gradeReceived);
-  review.set("takeAgain", data.takeAgain);
-  review.set("attendance", data.attendance);
+  review.set("majorRequirement", data.majorRequirement); 
+  review.set("semesterTaken", data.semesterTaken);
 };
 
-// CREATE
-export const createReview = (reviewData) => {
+// CREATE - create a new review
+export const createReview = async (reviewData) => {
   const Review = Parse.Object.extend("Review");
   const review = new Review();
 
-  const currentUser = Parse.User.current();
-  if (!currentUser) return Promise.reject("No current user");
-
+  const currentUser = getCurrentUser();
+  if (!currentUser) throw new Error("No current user");
   review.set("user", currentUser);
+
   setReviewFields(review, reviewData);
 
   return review.save()
-    .then((savedReview) => savedReview)
+    .then((savedReview) => {
+      console.log("Review created:", savedReview);
+      return savedReview;
+    })
     .catch((err) => {
       console.error("Error creating review:", err);
       throw err;
     });
 };
 
-// UPDATE
+// UPDATE - update a review
 export const updateReview = (id, reviewData) => {
   const Review = Parse.Object.extend("Review");
   const query = new Parse.Query(Review);
@@ -47,7 +55,7 @@ export const updateReview = (id, reviewData) => {
     });
 };
 
-// GET ALL
+// GET ALL - get all reviews
 export const getAllReviews = () => {
   const Review = Parse.Object.extend("Review");
   const query = new Parse.Query(Review);
@@ -61,7 +69,7 @@ export const getAllReviews = () => {
     });
 };
 
-// GET BY ID
+// GET BY ID - get a review by id
 export const getReviewById = (id) => {
   const Review = Parse.Object.extend("Review");
   const query = new Parse.Query(Review);
@@ -75,7 +83,7 @@ export const getReviewById = (id) => {
     });
 };
 
-// DELETE
+// DELETE - delete a review
 export const removeReview = (id) => {
   const Review = Parse.Object.extend("Review");
   const query = new Parse.Query(Review);
@@ -101,6 +109,7 @@ export const removeReview = (id) => {
     });
 };
 
+// GET USER REVIEWS - get all reviews for a user
 export const fetchUserReviews = async () => {
   const currentUser = Parse.User.current();
   if (!currentUser) return [];

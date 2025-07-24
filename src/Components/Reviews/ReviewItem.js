@@ -14,8 +14,7 @@ import {
   TextField,
 } from "@mui/material";
 
-//import React from "react";        
-
+import { isUserAuthenticated } from "../../Services/AuthService";
 function ReviewItem({ review, onDelete, onEdit, showUser, onReply, replies = [], onDeleteReply, canDeleteReplies = false  }) { //make replies array to collect responses
   const [isReplying, setIsReplying] = useState(false);
   const [replyText, setReplyText] = useState("");
@@ -24,9 +23,11 @@ function ReviewItem({ review, onDelete, onEdit, showUser, onReply, replies = [],
   const rating = review.get("rating");
   const difficulty = review.get("difficulty");
   const comment = review.get("comment");
-  const grade = review.get("gradeReceived");
-  const takeAgain = review.get("takeAgain");
-  const attendance = review.get("attendance");
+  const professorName = review.get("professorName");
+  const majorRequirement = review.get("majorRequirement");
+  const semesterTaken = review.get("semesterTaken");
+  
+  const userAuthenticated = isUserAuthenticated();
 
 
   const handleReplySubmit = () => {
@@ -51,13 +52,17 @@ function ReviewItem({ review, onDelete, onEdit, showUser, onReply, replies = [],
               <Avatar sx={{ width: 30, height: 30, fontSize: 18 }} />
             </IconButton>
             <Typography variant="h6"  >
-              {firstName} {lastName}
+              {userAuthenticated ? `${firstName} ${lastName}` : "Anonymous"}
             </Typography>
           </Box>
         )}
 
         <Typography variant="h6"  >
           {courseCode}
+        </Typography>
+
+        <Typography variant="body2">
+          <b>Professor:</b> {professorName}
         </Typography>
     
         <Typography variant="body2">
@@ -69,15 +74,11 @@ function ReviewItem({ review, onDelete, onEdit, showUser, onReply, replies = [],
         </Typography>
 
         <Typography variant="body2">
-          <b>Grade Received:</b> {grade}
+          <b>Major Requirement:</b> {majorRequirement ? "Yes" : "No"}
         </Typography>
 
         <Typography variant="body2">
-          <b>Attendance:</b> {attendance ? "Yes" : "No"}
-        </Typography>
-
-        <Typography variant="body2">
-          <b>Would Take Again:</b> {takeAgain ? "Yes" : "No"}
+          <b>Semester Taken:</b> {semesterTaken}
         </Typography>
 
         <Typography variant="body2">

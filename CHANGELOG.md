@@ -1,5 +1,17 @@
 # Change Log
 All notable changes to this project will be documented in this file.
+
+## [0.4.0] - 2025-07-26
+### Added
+- User Profile for easy review creation, editing, and deletion
+- Messaging Feature
+
+### Changed
+- Changed from using CSS to Material UI
+- Review filtering by additonal options (department, professor)
+
+### Fixed
+- 
  
 ## [0.3.0] - 2025-07-10
 ### Added

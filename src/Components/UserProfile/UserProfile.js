@@ -108,16 +108,12 @@ const handleDeleteReply = async (replyId) => {
 
       {isFormVisible && (
         // will be making a component to pop up
-        <Box>
-          <Typography variant="h2">
-            {editingReview ? "Edit Review" : "Add New Review"}
-          </Typography>
-          <ReviewForm
-            initialValues={editingReview}
-            onSubmit={handleFormSubmit}
-            onCancel={resetForm}
-          />
-        </Box>
+        <ReviewForm
+          initialValues={editingReview}
+          onSubmit={handleFormSubmit}
+          onCancel={resetForm}
+          isEditing={editingReview !== null}
+        />
       )}
 
       <Typography variant="h4"   align="center">

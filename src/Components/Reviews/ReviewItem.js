@@ -28,6 +28,7 @@ function ReviewItem({ review, onDelete, onEdit, showUser, onReply, replies = [],
   const takeAgain = review.get("takeAgain");
   const attendance = review.get("attendance");
 
+<<<<<<< HEAD
   const handleReplySubmit = () => {
     if (onReply && replyText.trim()) {
       onReply(review.id, replyText);
@@ -35,6 +36,11 @@ function ReviewItem({ review, onDelete, onEdit, showUser, onReply, replies = [],
     setReplyText("");
     setIsReplying(false);
   };
+=======
+  const user = review.get("user");
+  const firstName = user?.get("firstName");
+  const lastName = user?.get("lastName");
+>>>>>>> 9d915ebee9a41689d29e26a46a65a47c6b58bc60
 
   return (
     <Card variant="outlined" sx={{ height: "100%", p: 1 }}>
@@ -44,13 +50,13 @@ function ReviewItem({ review, onDelete, onEdit, showUser, onReply, replies = [],
             <IconButton>
               <Avatar sx={{ width: 30, height: 30, fontSize: 18 }} />
             </IconButton>
-            <Typography variant="h6" gutterBottom>
-              Anonymous
+            <Typography variant="h6"  >
+              {firstName} {lastName}
             </Typography>
           </Box>
         )}
 
-        <Typography variant="h6" gutterBottom>
+        <Typography variant="h6"  >
           {courseCode}
         </Typography>
     

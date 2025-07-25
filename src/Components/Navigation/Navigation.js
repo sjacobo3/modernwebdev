@@ -1,5 +1,5 @@
 import Parse from "parse";
-import { useState } from 'react';
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { isUserAuthenticated } from "../../Services/AuthService";
 
@@ -10,8 +10,8 @@ const Navigation = () => {
 
   const [anchorElNav, setAnchorElNav] = useState(null);
 
-  const pages = ['Home', 'Reviews', 'Inbox'];
-  
+  const pages = ["Home", "Reviews", "Inbox", "About"];
+
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
   };
@@ -27,12 +27,14 @@ const Navigation = () => {
 
   const handleUserProfile = () => {
     navigate("/profile");
-  }
+  };
 
   const getUserInitials = () => {
     const user = Parse.User.current();
-    return isUserAuthenticated() ? user.get("firstName").charAt(0) + user.get("lastName").charAt(0) : "?";
-  }
+    return isUserAuthenticated()
+      ? user.get("firstName").charAt(0) + user.get("lastName").charAt(0)
+      : "?";
+  };
 
   return (
     <NavigationBar
@@ -44,7 +46,7 @@ const Navigation = () => {
       handleUserProfile={handleUserProfile}
       userInitials={getUserInitials()}
     />
-  )
-}
+  );
+};
 
 export default Navigation;

@@ -25,7 +25,7 @@ import { useNavigate } from "react-router-dom";
   //make replies array to collect responses
   //const navigate = useNavigate();
 //
-function ReviewItem({ review, onDelete, onEdit, showUser, onReply, replies = [], onDeleteReply, canDeleteReplies = true, seeReplyButton  }) { //make replies array to collect responses
+function ReviewItem({ review, onDelete, onEdit, showUser, onReply, replies = [], onDeleteReply, seeReplyButton }) { //make replies array to collect responses
  const [isReplying, setIsReplying] = useState(false);
   const [replyText, setReplyText] = useState("");
   const [likes, setLikes] = useState(review.get("likes") || []);
@@ -138,7 +138,7 @@ function ReviewItem({ review, onDelete, onEdit, showUser, onReply, replies = [],
             <Typography variant="subtitle2" gutterBottom>
               Replies:
             </Typography>
-            {replies.map((r, idx) => {
+            {replies.map((r, idx) => { //delete own replies
               const replyText = r.get("userReply");
               const replyUser = r.get("user");
 
@@ -146,12 +146,6 @@ function ReviewItem({ review, onDelete, onEdit, showUser, onReply, replies = [],
               const currentUser = Parse.User.current();
               const isOwner = currentUser && replyUserId === currentUser.id;
 
-
-             // const currentUser = Parse.User.current();
-             // const replyUserId = replyUser?.id || replyUser?.get("objectId");
-              //const isOwner = currentUser && replyUserId === currentUser.id;
-              //const isOwner =
-               // currentUser && replyUser && replyUser.id === currentUser.id;
 
               return (
                 <Box
@@ -165,7 +159,8 @@ function ReviewItem({ review, onDelete, onEdit, showUser, onReply, replies = [],
                 • {replyText}
                 </Typography>
             
-              {canDeleteReplies && isOwner && (
+             {/*} {canDeleteReplies && isOwner && (*/}
+                {isOwner && (
                 <Button
                   color="error"
                   size="small"

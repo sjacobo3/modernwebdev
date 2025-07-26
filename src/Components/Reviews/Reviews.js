@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { getAllReviews } from "../../Services/ReviewService";
 import ReviewList from "./ReviewList";
+import { removeReply } from "../../Services/ReplyService"; //delete function
+import { fetchRepliesForReview } from "../../Services/ReplyService";
 import {
   Box,
   Button,
@@ -13,6 +15,7 @@ import {
   InputLabel,
 } from "@mui/material";
 
+
 const Reviews = () => {
   const [reviews, setReviews] = useState([]);
   const [searchBar, setSearchBar] = useState("");
@@ -21,6 +24,8 @@ const Reviews = () => {
   const [showUser, setShowUser] = useState(true);
   const [searchType, setSearchType] = useState("code"); //default
   const [sortType, setSortType] = useState("likes"); //default
+
+  const [replies, setReplies] = useState({});
 
   // get all reviews
   const fetchReviews = () => {
@@ -80,6 +85,23 @@ const Reviews = () => {
       return 0;
     }
   });
+
+  //delete replies 
+const handleDeleteReply = async (replyId, reviewId) => {
+  try {
+    await removeReply(replyId); // calls the backend to delete the reply
+    // refetch the replies for this review to update the UI
+    const updatedReplies = await fetchRepliesForReview(reviewId);
+    setReplies((prev) => ({
+      ...prev,
+      [reviewId]: updatedReplies,
+    }));
+  } catch (err) {
+    console.error("Error deleting reply:", err);
+    alert("Failed to delete reply");
+  }
+};
+
 
   return (
     <Container maxWidth="lg" sx={{ my: 8 }}>
@@ -149,6 +171,9 @@ const Reviews = () => {
         loading={loading}
         showUser={showUser}
         seeReplyButton={true}
+        onDeleteReply={handleDeleteReply}
+        replies={replies}
+        setReplies={setReplies}
       />
     </Container>
   );

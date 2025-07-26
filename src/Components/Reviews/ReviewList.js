@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect} from "react";
 import ReviewItem from "./ReviewItem";
 
 import { CircularProgress, Container, Grid, Typography } from "@mui/material";
@@ -13,11 +13,13 @@ const ReviewList = ({
   onDelete,
   onEdit,
   showUser,
-  canDeleteReplies = false,
-  onDeleteReply,
+  setReplies,
+  onReply,
   seeReplyButton,
+  replies = [],
+  onDeleteReply,
 }) => {
-  const [replies, setReplies] = useState({});
+  //const [replies, setReplies] = useState({});
 
   // Load replies for each review
   useEffect(() => {
@@ -34,7 +36,7 @@ const ReviewList = ({
     if (!loading && reviews.length > 0) {
       loadAllReplies();
     }
-  }, [reviews, loading]);
+  }, [reviews, loading, setReplies]);
 
   const handleReply = async (reviewId, replyText) => {
     try {
@@ -51,11 +53,6 @@ const ReviewList = ({
     }
   };
 
-  //  const handleReply = (reviewId, replyText) => {
-  // setReplies((Prev) => ({
-  //    ...Prev,
-  //      [reviewId]: [...(Prev[reviewId] || []), replyText],
-  //    }));
 
   if (loading) {
     return (
@@ -85,7 +82,8 @@ const ReviewList = ({
               showUser={showUser}
               replies={replies[review.id] || []}
               onReply={handleReply}
-              onDeleteReply={onDeleteReply}
+              //onDeleteReply={onDeleteReply}
+              onDeleteReply={(replyId) => onDeleteReply(replyId, review.id)}
               //canDeleteReplies={true}
               seeReplyButton={true}
             />

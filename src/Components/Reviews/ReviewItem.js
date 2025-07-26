@@ -25,7 +25,7 @@ import { useNavigate } from "react-router-dom";
   //make replies array to collect responses
   //const navigate = useNavigate();
 //
-function ReviewItem({ review, onDelete, onEdit, showUser, onReply, replies = [], onDeleteReply, canDeleteReplies = false, seeReplyButton  }) { //make replies array to collect responses
+function ReviewItem({ review, onDelete, onEdit, showUser, onReply, replies = [], onDeleteReply, canDeleteReplies = true, seeReplyButton  }) { //make replies array to collect responses
  const [isReplying, setIsReplying] = useState(false);
   const [replyText, setReplyText] = useState("");
   const [likes, setLikes] = useState(review.get("likes") || []);
@@ -141,9 +141,17 @@ function ReviewItem({ review, onDelete, onEdit, showUser, onReply, replies = [],
             {replies.map((r, idx) => {
               const replyText = r.get("userReply");
               const replyUser = r.get("user");
+
+              const replyUserId = replyUser?.id || replyUser?.get("objectId");
               const currentUser = Parse.User.current();
-              const isOwner =
-                currentUser && replyUser && replyUser.id === currentUser.id;
+              const isOwner = currentUser && replyUserId === currentUser.id;
+
+
+             // const currentUser = Parse.User.current();
+             // const replyUserId = replyUser?.id || replyUser?.get("objectId");
+              //const isOwner = currentUser && replyUserId === currentUser.id;
+              //const isOwner =
+               // currentUser && replyUser && replyUser.id === currentUser.id;
 
               return (
                 <Box

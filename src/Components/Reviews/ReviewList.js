@@ -86,7 +86,7 @@ const ReviewList = ({
               replies={replies[review.id] || []}
               onReply={handleReply}
               onDeleteReply={onDeleteReply}
-              canDeleteReplies={true}
+              //canDeleteReplies={true}
               seeReplyButton={true}
             />
           </Grid>

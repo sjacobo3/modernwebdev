@@ -87,6 +87,7 @@ const ReviewList = ({
               onReply={handleReply}
               onDeleteReply={onDeleteReply}
               canDeleteReplies={true}
+              seeReplyButton={true}
             />
           </Grid>
         ))}

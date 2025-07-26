@@ -16,29 +16,20 @@ import {
 
 import {
   isUserAuthenticated,
-  getCurrentUser,
+  //getCurrentUser,
 } from "../../Services/AuthService";
 import ThumbUpAltIcon from "@mui/icons-material/ThumbUpAlt";
 import { useNavigate } from "react-router-dom";
 
-function ReviewItem({
-  review,
-  onDelete,
-  onEdit,
-  showUser,
-  onReply,
-  replies = [],
-  onDeleteReply,
-  canDeleteReplies = false,
-  seeReplyButton,
-}) {
-  //make replies array to collect responses
-  const navigate = useNavigate();
 
-function ReviewItem({ review, onDelete, onEdit, showUser, onReply, replies = [], onDeleteReply, canDeleteReplies = false  }) { //make replies array to collect responses
-  const [isReplying, setIsReplying] = useState(false);
+  //make replies array to collect responses
+  //const navigate = useNavigate();
+//
+function ReviewItem({ review, onDelete, onEdit, showUser, onReply, replies = [], onDeleteReply, canDeleteReplies = false, seeReplyButton  }) { //make replies array to collect responses
+ const [isReplying, setIsReplying] = useState(false);
   const [replyText, setReplyText] = useState("");
   const [likes, setLikes] = useState(review.get("likes") || []);
+  const navigate = useNavigate();
 
   const courseCode = review.get("courseCode");
   const rating = review.get("rating");
@@ -53,7 +44,7 @@ function ReviewItem({ review, onDelete, onEdit, showUser, onReply, replies = [],
   //like stuff 
   const currentUser = Parse.User.current();
   //like stuff
-  const currentUser = getCurrentUser();
+  //const currentUser = getCurrentUser();
   const hasLiked = currentUser && likes.includes(currentUser.id);
 
   const handleReplySubmit = () => {
@@ -156,7 +147,7 @@ function ReviewItem({ review, onDelete, onEdit, showUser, onReply, replies = [],
                   mb={1}
                 >
                 <Typography key={idx} variant="body2" sx={{ mb: 1 }}>
-                • {r.get("userReply")}
+                • {replyText}
                 </Typography>
             
               {canDeleteReplies && isOwner && (

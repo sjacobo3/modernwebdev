@@ -9,7 +9,6 @@ import AuthLogin from "./Auth/AuthLogin";
 import Reviews from "./Reviews/Reviews";
 import UserProfile from "./UserProfile/UserProfile";
 import AuthForgot from "./Auth/AuthForgot"; //forgot password
-import About from "./About/About";
 import Inbox from "./Inbox/Inbox";
 
 const Components = () => {
@@ -22,7 +21,6 @@ const Components = () => {
         <Route path="/auth/login" element={<AuthLogin />} />
         <Route path="/auth/forgot" element={<AuthForgot />} />
         <Route path="/reviews" element={<Reviews />} />
-        <Route path="/about" element={<About />} />
         <Route
           path="/profile"
           element={<ProtectedRoute element={UserProfile} />}

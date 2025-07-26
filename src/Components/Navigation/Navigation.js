@@ -10,7 +10,7 @@ const Navigation = () => {
 
   const [anchorElNav, setAnchorElNav] = useState(null);
 
-  const pages = ["Home", "Reviews", "Inbox", "About"];
+  const pages = ["Home", "Reviews", "Inbox"];
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);

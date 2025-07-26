@@ -19,7 +19,7 @@ const Reviews = () => {
 
   const [loading, setLoading] = useState(true);
   const [showUser, setShowUser] = useState(true);
-  const [searchType, setSearchType] = useState("courseCode"); //default
+  const [searchType, setSearchType] = useState("code"); //default
   const [sortType, setSortType] = useState("likes"); //default
 
   // get all reviews

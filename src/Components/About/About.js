@@ -27,11 +27,13 @@ function About() {
         </Typography>
 
         <Typography variant="body2" sx={{ fontStyle: "italic" }}>
-          This project was created for CSE40695 Modern Web Development.
+          This project was developed for CSE40695 Modern Web Development.
         </Typography>
 
         <Stack spacing={1} sx={{ mt: 3 }}>
-          <Typography variant="h6">Contributors</Typography>
+          <Typography variant="h6" sx={{ fontWeight: "bold" }}>
+            Contributors
+          </Typography>
           <Box>
             <Typography variant="subtitle1">Margaret Aiyenero</Typography>
             <Typography variant="body2">maiyenero@nd.edu</Typography>

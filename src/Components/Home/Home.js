@@ -1,10 +1,10 @@
-import { Container, Box, Typography, Paper } from "@mui/material";
+import { Container, Typography, Paper } from "@mui/material";
 
 function Home() {
   return (
     <Container maxWidth="md" sx={{ my: 8 }}>
       <Paper sx={{ padding: 4, backgroundColor: "white" }}>
-        <Typography variant="h2" mb={4}>
+        <Typography variant="h1" mb={4}>
           Help fellow students choose their courses wisely!
         </Typography>
 

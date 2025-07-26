@@ -1,36 +1,40 @@
 import Parse from "parse";
 
+// get all departments
+export const getDepartments = async () => {
+  const Department = Parse.Object.extend("Department");
+  const query = new Parse.Query(Department);
+  query.ascending("abbreviation");
+  return await query.find();
+};
+
 // get all courses for a department
 export const getCoursesForDepartment = async (department) => {
-    if (!department) return [];
-
-    const Course = Parse.Object.extend("Course");
-    const query = new Parse.Query(Course);
+  const Course = Parse.Object.extend("Course");
+  const query = new Parse.Query(Course);
+  if (department) {
     query.equalTo("department", department);
-    query.ascending("name");
-    return await query.find();
+  }
+  query.ascending("code");
+  return await query.find();
 };
 
-// get all professors for a course (using the relation)
-export const getProfessorsForCourse = async (courseCode) => {
+// get all professors for a department
+export const getProfessorsForDepartment = async (department) => {
+  if (!department) return [];
 
-    const Course = Parse.Object.extend("Course");
-    const query = new Parse.Query(Course);
-    query.equalTo("code", courseCode);
-    const course = await query.first();
-
-    if (!course) return [];
-
-    const relation = course.relation("professors");
-    return await relation.query().find();
+  const Professor = Parse.Object.extend("Professor");
+  const query = new Parse.Query(Professor);
+  query.equalTo("department", department);
+  return await query.find();
 };
 
-// get all reviews for a course (using the relation)
+// get reviews for a course
 export const getReviewsForCourse = async (course) => {
-    if (!course) return [];
+  if (!course) return [];
 
-    const relation = course.relation("reviews");
-    const query = relation.query();
-    query.ascending("createdAt");
-    return await query.find();
-}
+  const Review = Parse.Object.extend("Review");
+  const query = new Parse.Query(Review);
+  query.equalTo("course", course);
+  return await query.find();
+};

@@ -35,6 +35,7 @@ function ReviewItem({
   //make replies array to collect responses
   const navigate = useNavigate();
 
+function ReviewItem({ review, onDelete, onEdit, showUser, onReply, replies = [], onDeleteReply, canDeleteReplies = false  }) { //make replies array to collect responses
   const [isReplying, setIsReplying] = useState(false);
   const [replyText, setReplyText] = useState("");
   const [likes, setLikes] = useState(review.get("likes") || []);
@@ -49,16 +50,13 @@ function ReviewItem({
 
   const userAuthenticated = isUserAuthenticated();
 
+  //like stuff 
+  const currentUser = Parse.User.current();
   //like stuff
   const currentUser = getCurrentUser();
   const hasLiked = currentUser && likes.includes(currentUser.id);
 
   const handleReplySubmit = () => {
-    if (!currentUser) {
-      navigate("/auth/login"); //redirect to login page if user is not logged in
-      return;
-    }
-
     if (onReply && replyText.trim()) {
       onReply(review.id, replyText);
     }
@@ -68,11 +66,6 @@ function ReviewItem({
 
   const handleToggleLike = async () => {
     try {
-      if (!currentUser) {
-        navigate("/auth/login"); //redirect to login page if user is not logged in
-        return;
-      }
-
       const Review = Parse.Object.extend("Review");
       const query = new Parse.Query(Review);
       const updatedReview = await query.get(review.id);
@@ -162,24 +155,25 @@ function ReviewItem({
                   alignItems="center"
                   mb={1}
                 >
-                  <Typography key={idx} variant="body2" sx={{ mb: 1 }}>
-                    • {replyText}
-                  </Typography>
-                  {canDeleteReplies && isOwner && (
-                    <Button
-                      color="error"
-                      size="small"
-                      onClick={() => onDeleteReply && onDeleteReply(r.id)}
-                    >
-                      Delete
-                    </Button>
-                  )}
-                </Box>
-              );
-            })}
-          </Box>
-        )}
-        {/*reply button and text field */}
+                <Typography key={idx} variant="body2" sx={{ mb: 1 }}>
+                • {r.get("userReply")}
+                </Typography>
+            
+              {canDeleteReplies && isOwner && (
+                <Button
+                  color="error"
+                  size="small"
+                  onClick={() => onDeleteReply && onDeleteReply(r.id)}
+                  >
+                  Delete
+                </Button>
+              )}
+            </Box>
+          );
+        })}
+      </Box> 
+    )}
+          {/*reply button and text field */}
       </CardContent>
       <CardActions sx={{ justifyContent: "flex-end" }}>
         <Stack direction="row" spacing={1}>

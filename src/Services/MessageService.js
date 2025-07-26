@@ -77,7 +77,7 @@ export const getMessages = async (conversationId) => {
 export const createMessage = async (conversationId, content, receiverId) => {
     const currUser = getCurrentUser();
 
-    const conversation = Parse.Object.extend("Conversation");
+    const conversation = new Parse.Object("Conversation");
     conversation.set("objectId", conversationId);
 
     const receiver = new Parse.User();

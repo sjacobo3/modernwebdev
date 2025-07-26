@@ -6,9 +6,11 @@ import { TextField,
     FormControl, InputLabel 
 } from "@mui/material";
 
+import { getCurrentUser } from "../../Services/AuthService";
 import { getAllUsers } from "../../Services/AuthService";
 import { createConversation, createMessage } from "../../Services/MessageService";
 
+// creates new conversation
 const ConversationForm = ({ onClose, conversations = [], onRedirectToConversation, fetchConversations }) => {
     const [messageContent, setMessageContent] = useState("");
     const [receiverId, setReceiverId] = useState("");
@@ -16,16 +18,19 @@ const ConversationForm = ({ onClose, conversations = [], onRedirectToConversatio
 
     const [users, setUsers] = useState([]);
 
+    // get users that are not the current user
     useEffect(() => {
         getAllUsers().then((u) => {
-            setUsers(u);
+            const currentUser = getCurrentUser();
+            const filteredUsers = u.filter(user => user.id !== currentUser.id);
+            setUsers(filteredUsers);
         });
     }, []);
 
-    // Check for existing conversation when receiverId changes
+    // check for existing conversation when receiverId changes
     useEffect(() => {
         if (!receiverId) return;
-        // Find a conversation with the selected user as a participant
+        // find a conversation with the selected user as a participant
         const existing = conversations.find(conv => {
             const participants = conv.get("participants");
             return participants.some(p => p.id === receiverId);

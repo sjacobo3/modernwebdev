@@ -4,7 +4,7 @@ import { getCurrentUser } from "../../Services/AuthService";
 import { getMessages, createMessage } from "../../Services/MessageService";
 import Message from "./Message";
 
-// ConversationDialog shows messages for a conversation in a dialog
+// shows all messages for a conversation in a dialog
 const ConversationDialog = ({ open, onClose, conversation }) => {
     const [messages, setMessages] = useState([]);
     const [messageContent, setMessageContent] = useState("");   
@@ -49,7 +49,7 @@ const ConversationDialog = ({ open, onClose, conversation }) => {
                     )}
                 </Box>
 
-                {/* new message input */}
+                {/* send a new message */}
                 <Box sx={{ display: "flex", flexDirection: "column", mt: 2, gap: 1 }}>
                     <TextField
                         fullWidth

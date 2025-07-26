@@ -1,18 +1,21 @@
 import Parse from "parse";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { logoutUser } from "../../Services/AuthService";
 import { fetchUserReviews } from "../../Services/ReviewService";
-import { createReview, updateReview, removeReview } from "../../Services/ReviewService";
+import {
+  createReview,
+  updateReview,
+  removeReview,
+} from "../../Services/ReviewService";
 import { useNavigate } from "react-router-dom";
 
 import ReviewList from "../Reviews/ReviewList";
-import ReviewForm from "../Reviews/ReviewForm";
-import {removeReply} from "../../Services/ReplyService";
+import ReviewForm from "./ReviewForm";
+import { removeReply } from "../../Services/ReplyService";
 
 import { Box, Button, Container, Typography } from "@mui/material";
 
 const UserProfile = () => {
-
   const navigate = useNavigate();
 
   const [reviews, setReviews] = useState([]);
@@ -76,33 +79,37 @@ const UserProfile = () => {
       navigate("/home");
     });
   };
-  
-//delte replies
-const handleDeleteReply = async (replyId) => {
-  try {
-    await removeReply(replyId);
-    loadReviews(); // or trigger state update for replies
-  } catch (err) {
-    alert("Failed to delete reply");
-  }
-};
- 
-  const userFullName = Parse.User.current() ? Parse.User.current().get("firstName") + " " + Parse.User.current().get("lastName") : "";
+
+  //delte replies
+  const handleDeleteReply = async (replyId) => {
+    try {
+      await removeReply(replyId);
+      loadReviews(); // or trigger state update for replies
+    } catch (err) {
+      alert("Failed to delete reply");
+    }
+  };
+
+  const userFullName = Parse.User.current()
+    ? Parse.User.current().get("firstName") +
+      " " +
+      Parse.User.current().get("lastName")
+    : "";
 
   return (
-    <Container maxWidth="xl" sx={{ my: 4 }}>
-      <Typography variant="h1" align="center"  >
+    <Container maxWidth="lg" sx={{ my: 8 }}>
+      <Typography variant="h1" align="center" sx={{ mb: 4 }}>
         {userFullName}
       </Typography>
 
-      <Box display="flex" justifyContent="center" mb={2}>
+      <Box display="flex" justifyContent="center" sx={{ mb: 2 }}>
         <Button
           onClick={() => {
             resetForm(); // clear editing state when toggling form
             setFormVisible(!isFormVisible);
           }}
         >
-          {isFormVisible ? "" : "Add Review"}
+          Add Review
         </Button>
       </Box>
 
@@ -116,7 +123,7 @@ const handleDeleteReply = async (replyId) => {
         />
       )}
 
-      <Typography variant="h4"   align="center">
+      <Typography variant="h4" align="center">
         Your Reviews
       </Typography>
 
@@ -126,7 +133,7 @@ const handleDeleteReply = async (replyId) => {
         onDelete={handleDelete}
         onEdit={handleEdit}
         showUser={true}
-        onDeleteReply={handleDeleteReply} 
+        onDeleteReply={handleDeleteReply}
         canDeleteReplies={true}
         replyButton={false}
       />

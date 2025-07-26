@@ -6,7 +6,7 @@ import Navigation from "./Navigation/Navigation";
 import Home from "./Home/Home";
 import AuthRegister from "./Auth/AuthRegister";
 import AuthLogin from "./Auth/AuthLogin";
-import ReviewMain from "./Reviews/ReviewMain";
+import Reviews from "./Reviews/Reviews";
 import UserProfile from "./UserProfile/UserProfile";
 import AuthForgot from "./Auth/AuthForgot"; //forgot password
 import About from "./About/About";
@@ -21,8 +21,8 @@ const Components = () => {
         <Route path="/auth/register" element={<AuthRegister />} />
         <Route path="/auth/login" element={<AuthLogin />} />
         <Route path="/auth/forgot" element={<AuthForgot />} />
+        <Route path="/reviews" element={<Reviews />} />
         <Route path="/about" element={<About />} />
-        <Route path="/reviews" element={<ReviewMain />} />
         <Route
           path="/profile"
           element={<ProtectedRoute element={UserProfile} />}

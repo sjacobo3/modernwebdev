@@ -31,11 +31,11 @@ function ReviewItem({ review, onDelete, onEdit, showUser, onReply, replies = [],
   const [likes, setLikes] = useState(review.get("likes") || []);
   const navigate = useNavigate();
 
-  const courseCode = review.get("courseCode");
+  const course = review.get("course") || "";
   const rating = review.get("rating");
   const difficulty = review.get("difficulty");
   const comment = review.get("comment");
-  const professorName = review.get("professorName");
+  const professor = review.get("professor") || "";
   const majorRequirement = review.get("majorRequirement");
   const semesterTaken = review.get("semesterTaken");
 
@@ -99,10 +99,17 @@ function ReviewItem({ review, onDelete, onEdit, showUser, onReply, replies = [],
           </Box>
         )}
 
-        <Typography variant="h6">{courseCode}</Typography>
+        <Typography variant="h6">
+          {course && typeof course.get === "function"
+            ? course.get("code")
+            : course || ""}
+        </Typography>
 
         <Typography variant="body2">
-          <b>Professor:</b> {professorName}
+          <b>Professor:</b>{" "}
+          {professor && typeof professor.get === "function"
+            ? professor.get("name")
+            : professor || ""}
         </Typography>
 
         <Typography variant="body2">

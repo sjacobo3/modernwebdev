@@ -14,8 +14,8 @@ const ReviewList = ({
   onEdit,
   showUser,
   setReplies,
-  onReply,
-  seeReplyButton,
+  //onReply,
+  //seeReplyButton,
   replies = [],
   onDeleteReply,
 }) => {
@@ -49,7 +49,7 @@ const ReviewList = ({
       }));
     } catch (err) {
       console.error("Error submitting reply:", err);
-      alert("Failed to add reply");
+      alert("added reply");
     }
   };
 

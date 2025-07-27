@@ -33,6 +33,8 @@ If the user has already sent a message to the selected user, they are redirected
 Login using account:
 * email = sjacobo3@nd.edu
 * password = 123
+* email = margaretaiyenero@gmail.com
+* password = 12345
 
 ## Collaborators
 Margaret Aiyenero and Samara Jacobo

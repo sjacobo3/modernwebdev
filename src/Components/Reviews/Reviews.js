@@ -14,6 +14,7 @@ import {
   FormControl,
   InputLabel,
 } from "@mui/material";
+import { FamilyRestroomRounded } from "@mui/icons-material";
 
 
 const Reviews = () => {
@@ -170,7 +171,7 @@ const handleDeleteReply = async (replyId, reviewId) => {
         reviews={sortedReviews}
         loading={loading}
         showUser={showUser}
-        seeReplyButton={true}
+        seeReplyButton={FamilyRestroomRounded}
         onDeleteReply={handleDeleteReply}
         replies={replies}
         setReplies={setReplies}

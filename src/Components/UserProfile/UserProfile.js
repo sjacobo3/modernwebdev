@@ -13,7 +13,7 @@ import ReviewList from "../Reviews/ReviewList";
 import ReviewForm from "./ReviewForm";
 import { removeReply } from "../../Services/ReplyService";
 
-import { Box, Button, Container, Typography } from "@mui/material";
+import { Box, Button, Container, fabClasses, Typography } from "@mui/material";
 
 const UserProfile = () => {
   const navigate = useNavigate();
@@ -136,6 +136,7 @@ const UserProfile = () => {
         onDeleteReply={handleDeleteReply}
         canDeleteReplies={true}
         replyButton={false}
+        
       />
 
       <Box display="flex" justifyContent="center" mt={4}>

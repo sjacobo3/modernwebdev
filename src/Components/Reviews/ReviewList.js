@@ -14,6 +14,7 @@ const ReviewList = ({
   onEdit,
   showUser,
   setReplies,
+
   //onReply,
   //seeReplyButton,
   replies = [],
@@ -49,7 +50,7 @@ const ReviewList = ({
       }));
     } catch (err) {
       console.error("Error submitting reply:", err);
-      alert("added reply");
+      alert("added reply"); //it adds reply not sure why theres an error so hard coding this for now
     }
   };
 

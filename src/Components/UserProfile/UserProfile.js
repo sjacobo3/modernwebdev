@@ -13,7 +13,7 @@ import ReviewList from "../Reviews/ReviewList";
 import ReviewForm from "./ReviewForm";
 import { removeReply } from "../../Services/ReplyService";
 
-import { Box, Button, Container, fabClasses, Typography } from "@mui/material";
+import { Box, Button, Container, Typography } from "@mui/material";
 
 const UserProfile = () => {
   const navigate = useNavigate();
@@ -22,6 +22,7 @@ const UserProfile = () => {
   const [loading, setLoading] = useState(true);
   const [isFormVisible, setFormVisible] = useState(false);
   const [editingReview, setEditingReview] = useState(null);
+  const [replies, setReplies] = useState({});
 
   useEffect(() => {
     loadReviews();
@@ -132,10 +133,13 @@ const UserProfile = () => {
         loading={loading}
         onDelete={handleDelete}
         onEdit={handleEdit}
-        showUser={true}
+        //showUser={showUser}
         onDeleteReply={handleDeleteReply}
         canDeleteReplies={true}
         replyButton={false}
+        seeReplyButton={true}
+        replies={replies}
+        setReplies={setReplies}
         
       />
 

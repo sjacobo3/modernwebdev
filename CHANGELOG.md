@@ -6,6 +6,8 @@ All notable changes to this project will be documented in this file.
 For authorized users:
 - Live messaging feature
 - User Profile with create, edit, and delete review functionality
+- Can delete replys that you made from the reviews page
+- More CSS from home page --> ND banner 
 
 ### Changed
 - "Review" page filtering and sorting by additonal options

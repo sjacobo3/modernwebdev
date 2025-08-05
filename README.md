@@ -1,33 +1,56 @@
-## About Pick My Professor
-Problem: Registering for classes is stressful where one class can make or break your college experience. There are many platforms like Reddit and Rate My Professor where you can find reviews for classes, but not one.
+# Pick My Professor
 
-Solution: Find reviews for classes in one place where you can message other users with questions regarding their reviews or for networking purposes.
+## About
+
+**Pick My Professor** is a web platform designed to make college course planning easier and more transparent.  
+While platforms like Reddit and Rate My Professor offer insights, they often lack structure or completeness.
+
+**Problem:** Registering for classes can be overwhelming and one class can significantly impact a student’s academic journey. Reliable information on courses is often scattered or missing.
+
+**Solution:** A centralized space where students can read and post course reviews, connect with other students via messaging, and (coming soon) build a personalized 4-year academic plan.
+
+## Features
+
+- ✏️ Logged-in users can **create, edit, and delete course reviews** by department and course number  
+- 🔒 One review per course per user (with ability to update/delete)  
+- 📩 Built-in **messaging feature** for users to connect with each other  
+- 🔍 Plans for future development: **4-year academic planner**, course filtering, and rating insights
 
 ## Built With
-React, Material UI
+
+- [React](https://reactjs.org/)
+- [Material UI](https://mui.com/)
+- [Back4App / Parse](https://www.back4app.com/)
+- JavaScript (ES6+), HTML/CSS
 
 ## Getting Started
-* Prerequisites
-  * npm
-    ```sh
-    npm install
-    ```
-## Running 
-Access the platform by
-* running locally from the root
-    ```sh
-    git clone https://github.com/sjacobo3/modernwebdev.git
-    cd modernwebdev
-    npm start
-    ```
 
-## Creating a review
-Logged in users can create reviews for the courses for specific departments. 
-Users can only make one review for each course but has the ability to update/delete their review.
+### Prerequisites
 
-## Sending a message to another user
-User must be signed in to access the messaging feature. User can start a conversation with the button which prompts them for who they are sending a message to, a message title, and the message content. 
-If the user has already sent a message to the selected user, they are redirected to there previous messages.
+- [Node.js](https://nodejs.org/)
+- npm
+
+### Installation
+
+```bash
+git clone https://github.com/sjacobo3/modernwebdev.git
+cd modernwebdev
+npm install
+npm start
+```
+
+## Usage
+### Creating a Review
+- Sign in with your account
+- Navigate to user profile page
+- Submit a new review or edit your existing one
+- Only one review per course is allowed per user
+
+### Messaging Other Users
+- Must be logged in
+- Click the "Start Conversation" button
+- Enter recipient username, subject, and message body
+- If a thread already exists, you’ll be redirected to your previous conversation
 
 ## Access website
 Login using account:

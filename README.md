@@ -11,10 +11,11 @@ While platforms like Reddit and Rate My Professor offer insights, they often lac
 
 ## Features
 
-- ✏️ Logged-in users can **create, edit, and delete course reviews** by department and course number  
-- 🔒 One review per course per user (with ability to update/delete)  
+- ✏️ Logged-in users can **create, edit, and delete course reviews** by department and course number
+- 📋 **Filter** reviews by department
+- 🔒 One review per course per user
 - 📩 Built-in **messaging feature** for users to connect with each other  
-- 🔍 Plans for future development: **4-year academic planner**, course filtering, and rating insights
+- 🔍 Plans for future development: **4-year academic planner** and rating insights
 
 ## Built With
 
